@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>全国青少年软件编程（Scratch）等级考试试卷（一级）</title>
+<title>横琴算法编程挑战赛</title>
 <style>
   :root{
     --blue:#1d4ed8; --blue-d:#0f3a8c; --blue-l:#e8effd;
@@ -83,6 +83,8 @@
     display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; flex:none;
   }
   .qpts{font-size:13px; color:var(--mut); flex:none}
+  .banner{background:var(--blue-l); color:var(--blue-d); font-weight:600; border-color:#c5d8f2}
+  .banner b{color:var(--blue-d)}
   .qimg{display:block; width:100%; max-width:640px; border:1px solid var(--line); border-radius:10px; margin:10px 0 4px; background:#fff; cursor:zoom-in}
   .qimg:hover{border-color:var(--blue)}
   /* Scratch 风格积木块（选项内嵌渲染） */
@@ -248,9 +250,11 @@
 <!-- ================= 登录 / 考试须知 ================= -->
 <section id="view-login" class="wrap">
   <div class="topbar">
-    <div class="t1">全国青少年软件编程（Scratch）等级考试试卷（一级）</div>
-    <div class="t2">考试时间 60 分钟 ｜ 满分 100 分 ｜ 题数 37 ｜ 单选 25 题 × 2 分 · 判断 10 题 × 2 分 · 编程 2 题 × 15 分</div>
+    <div class="t1">横琴算法编程挑战赛</div>
+    <div class="t2">考试时间 90 分钟 ｜ 满分 100 分 ｜ 题数 37 ｜ 单选 25 题 × 2 分 · 判断 10 题 × 2 分 · 编程 2 题 × 15 分</div>
   </div>
+
+  <div class="card banner" id="contest-banner">—</div>
 
   <div class="login-grid">
     <div class="card">
@@ -261,7 +265,7 @@
       </div>
       <div class="field">
         <label for="in-ticket">准考证号</label>
-        <input id="in-ticket" maxlength="8" inputmode="numeric" placeholder="8 位数字" autocomplete="off">
+        <input id="in-ticket" maxlength="8" inputmode="numeric" placeholder="8 位数字" autocomplete="off" value="91770179">
         <div class="err" id="ticket-err">准考证号应为 8 位数字</div>
       </div>
       <button class="btn ok" id="btn-login" type="button" style="width:100%; justify-content:center; padding:13px">
@@ -272,12 +276,12 @@
     <div class="card notice">
       <h2>考生须知</h2>
       <ol>
-        <li>考试时长 <b>60 分钟</b>，点击「开始考试」后自动计时。</li>
+        <li>考试时长 <b>90 分钟</b>（正式场次 11 月 15 日 10:00–11:30），点击「开始考试」后自动计时，到 11:30 统一收卷。</li>
         <li>试卷共三部分：<b>单项选择 25 题</b>（每题 2 分，共 50 分）、<b>判断 10 题</b>（每题 2 分，共 20 分）、<b>编程题 2 题</b>（每题 15 分，共 30 分）。</li>
-        <li>编程题请在<b>本机 Scratch 编辑器</b>中完成，完成后回到页面勾选「验收点」计分。</li>
-        <li>答案<b>自动保存</b>；意外关闭页面后重新登录可继续作答，计时不清零。</li>
+        <li>编程题请在<b>本机 Scratch 编辑器</b>中完成，完成后回到页面勾选「验收点」。</li>
+        <li>答案<b>自动保存</b>在本机；意外关闭页面后重新登录可继续作答，计时不清零。</li>
         <li>时间用完将<b>自动交卷</b>；也可点击「交卷」提前结束。</li>
-        <li>交卷后立即出分，附<b>逐题解析</b>，错题要弄懂再重考。</li>
+        <li>交卷后答卷<b>即时上传云端</b>，页面<b>不显示答案、成绩与解析</b>，也<b>不能重新作答</b>；成绩由组委会统一评定后公布。</li>
       </ol>
     </div>
   </div>
@@ -286,7 +290,7 @@
     <h2>在线编程练习（Scratch 编辑器，可直接动手写）</h2>
     <div class="editor-box">
       <p class="big">Scratch 全功能在线编辑器</p>
-      <p class="sub">TurboWarp 版 · 中文界面 · 与等级考试编辑器操作一致 · 免安装</p>
+      <p class="sub">TurboWarp 版 · 中文界面 · 与比赛编辑器操作一致 · 免安装</p>
       <a class="btn ok" href="https://turbowarp.org/editor?locale=zh-cn" target="_blank" rel="noopener">打开 Scratch 编辑器</a>
       <p class="tip">右上角菜单 → 文件 → 保存到电脑，可把作品存成 .sb3 文件</p>
     </div>
@@ -323,12 +327,12 @@
 <section id="view-exam" hidden>
   <div class="exambar">
     <div class="wrap">
-      <div class="who"><b id="exam-name">—</b> ｜ 准考证号 <b id="exam-ticket">—</b> ｜ 试卷（一级）</div>
+      <div class="who"><b id="exam-name">—</b> ｜ 准考证号 <b id="exam-ticket">—</b> ｜ 横琴算法编程挑战赛</div>
       <div class="palette" id="palette"></div>
       <div style="display:flex; gap:10px; align-items:center">
         <div class="timer" id="timer">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          <span id="timer-text">60:00</span>
+          <span id="timer-text">90:00</span>
         </div>
         <button class="btn danger" id="btn-submit-top" type="button">交卷</button>
       </div>
@@ -357,9 +361,12 @@
 /* ================= 考试配置 ================= */
 var EXAM = {
   student: '谷彦泽',
-  title: '全国青少年软件编程（Scratch）等级考试试卷（一级）',
-  durationMin: 60,
-  storeKey: 'scratchExamMock.v3'
+  title: '横琴算法编程挑战赛',
+  durationMin: 90,
+  storeKey: 'scratchExamMock.v4',
+  apiBase: 'https://apec2026-api-330891-4-1258998490.sh.run.tcloudbase.com',
+  windowStart: Date.parse('2026-11-15T10:00:00+08:00'),
+  windowEnd: Date.parse('2026-11-15T11:30:00+08:00')
 };
 
 /* ---------- 一、单项选择（25 题 × 2 分 = 50 分） ---------- */
@@ -504,9 +511,10 @@ function pad2(n){ return (n < 10 ? '0' : '') + n; }
 
 /* ================= 登录页 ================= */
 $('in-name').value = S.name || EXAM.student;
-$('in-ticket').value = S.ticket || '20261101';
+$('in-ticket').value = S.ticket || '91770179';
 
 $('btn-login').addEventListener('click', function(){
+  if (S.submitted){ renderSubmitted(); return; }
   var name = $('in-name').value.trim();
   var tk = $('in-ticket').value.trim();
   var err = $('ticket-err');
@@ -531,6 +539,10 @@ function startExamView(){
   $('exam-ticket').textContent = S.ticket;
   if (!S.startedAt){ S.startedAt = Date.now(); saveState(S); }
   endAt = S.startedAt + EXAM.durationMin * 60000;
+  var now = Date.now();
+  if (EXAM.windowEnd && now >= EXAM.windowStart && now <= EXAM.windowEnd){
+    endAt = Math.min(endAt, EXAM.windowEnd);
+  }
   buildPaper();
   buildPalette();
   updateTimer();
@@ -555,7 +567,7 @@ function buildPalette(){
 
 function buildPaper(){
   var html = '<div class="card"><h2>' + esc(EXAM.title) + '</h2>' +
-    '<p class="muted">分数：100 分 ｜ 题数：37 ｜ 单项选择 25 题（50 分）+ 判断 10 题（20 分）+ 编程 2 题（30 分）｜ 考试时间 60 分钟。答案自动保存。</p></div>';
+    '<p class="muted">分数：100 分 ｜ 题数：37 ｜ 单项选择 25 题（50 分）+ 判断 10 题（20 分）+ 编程 2 题（30 分）｜ 考试时间 90 分钟。答案自动保存，交卷后上传云端。</p></div>';
 
   html += '<div class="card"><h2>一、单项选择（共 25 题，每题 2 分，共 50 分）</h2>';
   MC.forEach(function(q, i){
@@ -693,108 +705,58 @@ function updateTimer(){
   }
 }
 
-/* ---------- 交卷与判分 ---------- */
+/* ---------- 交卷：上传云端，不显示答案/成绩，禁止重做 ---------- */
 function doSubmit(auto){
   if (submitted) return;
-  if (!auto && !confirm('确定交卷吗？交卷后将立即显示成绩与解析。')) return;
+  if (!auto && !confirm('确定交卷吗？交卷后不能查看答案与成绩，也不能重新作答。')) return;
   submitted = true;
   clearInterval(timerTm);
-  var r = grade();
+  var used = Math.min(EXAM.durationMin * 60, Math.max(0, Math.round((Date.now() - S.startedAt) / 1000)));
   S.submitted = true;
-  S.result = r;
+  S.result = { at: new Date().toLocaleString('zh-CN'), used: used, auto: !!auto };
   saveState(S);
-  renderResult(r, auto);
+  renderSubmitted('正在提交答卷…', true);
+  submitToCloud(auto, used);
 }
 
-function grade(){
-  var mcScore = 0, tfScore = 0, mcRight = 0, tfRight = 0;
-  var mcRev = MC.map(function(q, i){
-    var mine = S.answers.mc[i];
-    var ok = mine === q.ans;
-    if (ok){ mcScore += 2; mcRight++; }
-    return { no:i, q:q.q, mine:mine, ans:q.ans, ok:ok, exp:q.exp };
+function submitToCloud(auto, used){
+  var payload = {
+    name: S.name,
+    ticket: S.ticket,
+    contest: EXAM.title,
+    startedAt: S.startedAt,
+    submittedAt: Date.now(),
+    durationUsedSec: used,
+    auto: !!auto,
+    answers: S.answers,
+  };
+  fetch(EXAM.apiBase + '/api/exam/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).then(function(r){
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }).then(function(j){
+    renderSubmitted('答卷已上传云端，提交编号 #' + (j && j.id !== undefined ? j.id : '?'), false);
+  }).catch(function(){
+    renderSubmitted('云端暂时不可达，答卷已完整保存在本机，请截图本页并联系带队老师补交', true);
   });
-  var tfRev = TF.map(function(q, i){
-    var mine = S.answers.tf[i];
-    var ok = mine === q.ans;
-    if (ok){ tfScore += 2; tfRight++; }
-    return { no:i, q:q.q, mine:mine, ans:q.ans, ok:ok, exp:q.exp };
-  });
-  var taskScore = 0;
-  var taskRev = TASKS.map(function(t, i){
-    var arr = S.answers.tasks[i] || t.steps.map(function(){ return false; });
-    var n = arr.filter(Boolean).length;
-    var got = Math.round(t.pts * n / t.steps.length);
-    taskScore += got;
-    return { idx:i, title:t.title, got:got, pts:t.pts, n:n, total:t.steps.length, steps:t.steps, marks:arr, goal:t.goal };
-  });
-  return { mc:mcScore, tf:tfScore, task:taskScore, total:mcScore + tfScore + taskScore,
-    mcRight:mcRight, tfRight:tfRight, mcRev:mcRev, tfRev:tfRev, taskRev:taskRev,
-    at:new Date().toLocaleString('zh-CN') };
 }
 
-function renderResult(r, auto){
+function renderSubmitted(statusLine, busy){
   $('view-exam').hidden = true;
   var v = $('view-result');
   v.hidden = false;
-
-  var html = '<div class="topbar"><div><div class="t1">' + (auto ? '时间到，已自动交卷' : '交卷成功') + '</div>' +
-    '<div class="t2">' + esc(S.name) + ' ｜ 准考证号 ' + esc(S.ticket) + ' ｜ ' + esc(r.at) + ' ｜ ' + esc(EXAM.title) + '</div></div>' +
-    '<div class="real-card" style="display:flex; gap:10px; flex-wrap:wrap">' +
-    '<button class="btn ghost" id="btn-retry" type="button">重新考试（清空答卷）</button>' +
-    '<button class="btn ghost" id="btn-print" type="button">打印/保存成绩单</button></div></div>';
-
-  html += '<div class="card"><h2>总成绩</h2><div class="score-hero">' +
-    '<div class="score-big">' + r.total + '<small> / 100</small></div>' +
-    '<div class="parts">' +
-    '<div class="part"><b>' + r.mc + '<small>/50</small></b><span>单选（对 ' + r.mcRight + '/' + MC.length + '）</span></div>' +
-    '<div class="part"><b>' + r.tf + '<small>/20</small></b><span>判断（对 ' + r.tfRight + '/' + TF.length + '）</span></div>' +
-    '<div class="part"><b>' + r.task + '<small>/30</small></b><span>编程实操（按验收点）</span></div>' +
-    '</div></div>' +
-    '<p class="muted" style="margin-top:10px">等级考试（一级）合格线约为 60 分；编程题由家长按验收点把关。</p></div>';
-
-  html += '<div class="card"><h2>单选解析</h2>';
-  r.mcRev.forEach(function(it){
-    html += '<div class="review-item"><span class="tag ' + (it.ok ? 'right' : 'wrong') + '">' + (it.ok ? '✓ 答对' : '× 答错') + '</span> ' +
-      '<b>第 ' + (it.no + 1) + ' 题</b>　' + esc(it.q) +
-      '<div class="your-ans">你的答案：<b>' + (it.mine === undefined ? '未作答' : 'ABCD'[it.mine]) + '</b>　正确答案：<b style="color:var(--ok)">' + 'ABCD'[it.ans] + '</b></div>' +
-      '<div class="exp">' + esc(it.exp) + '</div></div>';
-  });
-  html += '</div>';
-
-  html += '<div class="card"><h2>判断解析</h2>';
-  r.tfRev.forEach(function(it){
-    html += '<div class="review-item"><span class="tag ' + (it.ok ? 'right' : 'wrong') + '">' + (it.ok ? '✓ 答对' : '× 答错') + '</span> ' +
-      '<b>判断 ' + (it.no + 1) + '</b>　' + esc(it.q) +
-      '<div class="your-ans">你的答案：<b>' + (it.mine === undefined ? '未作答' : (it.mine ? '正确 √' : '错误 ×')) + '</b>　正确答案：<b style="color:var(--ok)">' + (it.ans ? '正确 √' : '错误 ×') + '</b></div>' +
-      '<div class="exp">' + esc(it.exp) + '</div></div>';
-  });
-  html += '</div>';
-
-  html += '<div class="card"><h2>编程题结果</h2>';
-  r.taskRev.forEach(function(t){
-    var ratio = t.got / t.pts;
-    var cls = ratio >= 1 ? 'right' : ratio > 0 ? 'half' : 'wrong';
-    var label = ratio >= 1 ? '满分' : ratio > 0 ? '部分完成' : '未完成';
-    html += '<div class="review-item"><span class="tag ' + cls + '">' + label + '</span> <b>' + esc(t.title) + '</b>　得 ' + t.got + ' / ' + t.pts + ' 分（' + t.n + '/' + t.total + ' 验收点）' +
-      '<div class="exp"><b>任务目标：</b>' + esc(t.goal) + '<br><b>验收点：</b><br>' +
-      t.steps.map(function(st, j){ return (t.marks[j] ? '✓ ' : '□ ') + esc(st); }).join('<br>') + '</div></div>';
-  });
-  html += '</div>';
-
-  v.innerHTML = html;
-
-  $('btn-retry').addEventListener('click', function(){
-    if (!confirm('清空本次答卷并重新开始考试？')) return;
-    S = { name:S.name, ticket:S.ticket, startedAt:null, answers:{ mc:{}, tf:{}, tasks:{} }, submitted:false };
-    saveState(S);
-    submitted = false;
-    $('view-result').hidden = true;
-    $('view-login').hidden = false;
-    window.scrollTo(0, 0);
-    toast('已重置，可重新开始');
-  });
-  $('btn-print').addEventListener('click', function(){ window.print(); });
+  var r = S.result || {};
+  v.innerHTML = '<div class="topbar"><div><div class="t1">' + (r.auto ? '时间到，已自动交卷' : '交卷成功') + '</div>' +
+    '<div class="t2">' + esc(S.name) + ' ｜ 准考证号 ' + esc(S.ticket) + ' ｜ ' + esc(r.at || '') + ' ｜ ' + esc(EXAM.title) + '</div></div></div>' +
+    '<div class="card"><h2>考试结束</h2>' +
+    '<p id="cloud-status">' + (statusLine || '答卷已提交') + '</p>' +
+    (busy ? '' :
+      '<p class="muted">本次比赛<b>不公布答案、成绩与解析</b>，也<b>不能重新作答</b>。成绩将由组委会统一评定后另行公布，请留意通知。</p>' +
+      '<p class="muted">答题用时：' + Math.floor((r.used || 0) / 60) + ' 分 ' + ((r.used || 0) % 60) + ' 秒</p>') +
+    '</div>';
   window.scrollTo(0, 0);
 }
 
@@ -812,6 +774,29 @@ window.addEventListener('beforeunload', function(e){
 document.addEventListener('visibilitychange', function(){
   if (document.hidden) saveState(S);
 });
+
+/* ---------- 赛程横幅与交卷锁定 ---------- */
+function fmtDur(ms){
+  var s = Math.max(0, Math.floor(ms / 1000));
+  var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+  return (d ? d + ' 天 ' : '') + pad2(h) + ' 小时 ' + pad2(m) + ' 分 ' + pad2(s % 60) + ' 秒';
+}
+function bannerTick(){
+  var el = $('contest-banner');
+  if (!el) return;
+  var now = Date.now();
+  if (now < EXAM.windowStart){
+    el.innerHTML = '距正式开赛（11 月 15 日 10:00）还有 <b>' + fmtDur(EXAM.windowStart - now) + '</b>；开赛前进入为练习模式';
+  } else if (now <= EXAM.windowEnd){
+    el.innerHTML = '<b>正式比赛进行中</b>（10:00–11:30），到 11:30 将统一自动交卷';
+  } else {
+    el.innerHTML = '正式场次已结束（11 月 15 日 10:00–11:30），现在进入为练习模式';
+  }
+}
+bannerTick();
+setInterval(bannerTick, 1000);
+
+if (S.submitted){ renderSubmitted(); }
 
 /* ---------- 题图点击放大（滚轮缩放 / 拖动平移 / 双击复位） ---------- */
 var lb = $('lightbox'), lbImg = $('lightbox-img'), lbZoom = $('lightbox-zoom');
