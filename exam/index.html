@@ -83,7 +83,23 @@
     display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; flex:none;
   }
   .qpts{font-size:13px; color:var(--mut); flex:none}
-  .qimg{display:block; width:100%; max-width:640px; border:1px solid var(--line); border-radius:10px; margin:10px 0 4px; background:#fff}
+  .qimg{display:block; width:100%; max-width:640px; border:1px solid var(--line); border-radius:10px; margin:10px 0 4px; background:#fff; cursor:zoom-in}
+  .qimg:hover{border-color:var(--blue)}
+  .lightbox{
+    position:fixed; inset:0; z-index:98; background:rgba(10,16,28,.86);
+    display:flex; align-items:center; justify-content:center; padding:24px; cursor:zoom-out;
+  }
+  .lightbox[hidden]{display:none}
+  .lightbox img{
+    max-width:94vw; max-height:92vh; border-radius:10px; background:#fff;
+    box-shadow:0 12px 50px rgba(0,0,0,.5);
+  }
+  .lightbox .close{
+    position:absolute; top:14px; right:18px; width:44px; height:44px; border-radius:50%;
+    background:rgba(255,255,255,.14); color:#fff; font-size:26px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lightbox .hint{position:absolute; bottom:16px; left:0; right:0; text-align:center; color:#c6d2e6; font-size:13px}
   .qtext{font-size:17px; font-weight:600}
   .opts{display:grid; gap:10px; margin-top:6px}
   @media (min-width:640px){ .opts.two{grid-template-columns:1fr 1fr} }
@@ -280,6 +296,11 @@
 <!-- ================= 成绩页 ================= -->
 <section id="view-result" class="wrap" hidden></section>
 
+<div class="lightbox" id="lightbox" hidden>
+  <button class="close" id="lightbox-close" type="button" aria-label="关闭">×</button>
+  <img id="lightbox-img" src="" alt="题目配图放大">
+  <div class="hint">点击图片或 × 关闭 · 双指/滚轮可缩放页面</div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -706,6 +727,29 @@ window.addEventListener('beforeunload', function(e){
 
 document.addEventListener('visibilitychange', function(){
   if (document.hidden) saveState(S);
+});
+
+/* ---------- 题图点击放大 ---------- */
+var lb = $('lightbox'), lbImg = $('lightbox-img');
+function lbClose(){
+  lb.hidden = true;
+  lbImg.src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('click', function(e){
+  if (!lb.hidden){
+    lbClose();
+    return;
+  }
+  var img = e.target.closest && e.target.closest('img.qimg');
+  if (img){
+    lbImg.src = img.getAttribute('src');
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+});
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape' && !lb.hidden) lbClose();
 });
 
 /* ================= 积木排序闯关 ================= */
