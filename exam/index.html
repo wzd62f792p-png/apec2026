@@ -93,13 +93,20 @@
   .lightbox img{
     max-width:94vw; max-height:92vh; border-radius:10px; background:#fff;
     box-shadow:0 12px 50px rgba(0,0,0,.5);
+    transform:translate(0px, 0px) scale(1); transition:transform .12s ease-out;
+    cursor:grab; touch-action:none; will-change:transform; user-select:none;
   }
+  .lightbox img.dragging{transition:none; cursor:grabbing}
   .lightbox .close{
     position:absolute; top:14px; right:18px; width:44px; height:44px; border-radius:50%;
     background:rgba(255,255,255,.14); color:#fff; font-size:26px; line-height:1;
     display:flex; align-items:center; justify-content:center;
   }
   .lightbox .hint{position:absolute; bottom:16px; left:0; right:0; text-align:center; color:#c6d2e6; font-size:13px}
+  .lightbox .zoomtag{
+    position:absolute; top:18px; left:20px; padding:6px 14px; border-radius:20px;
+    background:rgba(255,255,255,.14); color:#fff; font-size:14px; font-weight:700;
+  }
   .qtext{font-size:17px; font-weight:600}
   .opts{display:grid; gap:10px; margin-top:6px}
   @media (min-width:640px){ .opts.two{grid-template-columns:1fr 1fr} }
@@ -298,8 +305,9 @@
 
 <div class="lightbox" id="lightbox" hidden>
   <button class="close" id="lightbox-close" type="button" aria-label="关闭">×</button>
-  <img id="lightbox-img" src="" alt="题目配图放大">
-  <div class="hint">点击图片或 × 关闭 · 双指/滚轮可缩放页面</div>
+  <span class="zoomtag" id="lightbox-zoom">100%</span>
+  <img id="lightbox-img" src="" alt="题目配图放大" draggable="false">
+  <div class="hint">滚轮缩放 · 按住拖动移动 · 双击复位 · 点击空白处或 × 关闭</div>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -729,8 +737,20 @@ document.addEventListener('visibilitychange', function(){
   if (document.hidden) saveState(S);
 });
 
-/* ---------- 题图点击放大 ---------- */
-var lb = $('lightbox'), lbImg = $('lightbox-img');
+/* ---------- 题图点击放大（滚轮缩放 / 拖动平移 / 双击复位） ---------- */
+var lb = $('lightbox'), lbImg = $('lightbox-img'), lbZoom = $('lightbox-zoom');
+var lbZ = 1, lbX = 0, lbY = 0;
+function lbApply(){
+  lbImg.style.transform = 'translate(' + lbX + 'px,' + lbY + 'px) scale(' + lbZ + ')';
+  lbZoom.textContent = Math.round(lbZ * 100) + '%';
+}
+function lbOpen(src){
+  lbImg.src = src;
+  lbZ = 1; lbX = 0; lbY = 0;
+  lbApply();
+  lb.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
 function lbClose(){
   lb.hidden = true;
   lbImg.src = '';
@@ -738,19 +758,55 @@ function lbClose(){
 }
 document.addEventListener('click', function(e){
   if (!lb.hidden){
-    lbClose();
+    if (e.target === lb || e.target.id === 'lightbox-close' ||
+        (e.target.closest && e.target.closest('#lightbox-close'))){
+      lbClose();
+    }
     return;
   }
   var img = e.target.closest && e.target.closest('img.qimg');
-  if (img){
-    lbImg.src = img.getAttribute('src');
-    lb.hidden = false;
-    document.body.style.overflow = 'hidden';
-  }
+  if (img) lbOpen(img.getAttribute('src'));
 });
 document.addEventListener('keydown', function(e){
   if (e.key === 'Escape' && !lb.hidden) lbClose();
 });
+/* 滚轮缩放（1x–6x，页面不跟着滚动） */
+lb.addEventListener('wheel', function(e){
+  if (lb.hidden) return;
+  e.preventDefault();
+  var f = e.deltaY < 0 ? 1.18 : 1 / 1.18;
+  lbZ = Math.min(6, Math.max(1, lbZ * f));
+  if (lbZ <= 1){ lbX = 0; lbY = 0; }
+  lbApply();
+}, { passive:false });
+/* 双击复位 */
+lbImg.addEventListener('dblclick', function(){
+  lbZ = 1; lbX = 0; lbY = 0;
+  lbApply();
+});
+/* 按住拖动平移 */
+var lbDrag = false, lbSX = 0, lbSY = 0;
+lbImg.addEventListener('pointerdown', function(e){
+  if (lbZ <= 1) return;
+  lbDrag = true;
+  lbSX = e.clientX - lbX;
+  lbSY = e.clientY - lbY;
+  lbImg.classList.add('dragging');
+  try { lbImg.setPointerCapture(e.pointerId); } catch (err) {}
+  e.preventDefault();
+});
+lbImg.addEventListener('pointermove', function(e){
+  if (!lbDrag) return;
+  lbX = e.clientX - lbSX;
+  lbY = e.clientY - lbSY;
+  lbApply();
+});
+function lbDragEnd(){
+  lbDrag = false;
+  lbImg.classList.remove('dragging');
+}
+lbImg.addEventListener('pointerup', lbDragEnd);
+lbImg.addEventListener('pointercancel', lbDragEnd);
 
 /* ================= 积木排序闯关 ================= */
 /* blocks 数组即正确顺序；disp 是打乱后的展示顺序（block 下标） */
