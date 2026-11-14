@@ -460,8 +460,26 @@ var MC = [
     exp:'只有保存成 .sb3 文件，下次才能打开继续编辑。' },
   { q:'你去旅行，带了三件上衣，三件裤子，请问有几种搭配穿法呢？', opts:['3','6','9','其他三项都不是'], ans:2,
     exp:'每件上衣都能配 3 条裤子：3 × 3 = 9 种。' },
-  { q:'小猫看到一个苹果（如图），下面哪段程序可以让小猫拿到苹果？', img:'img/q17.png', opts:[], ans:0,
-    exp:'选项 A：先移动 100 步，左转 90 度再移动 100 步正好走到苹果那里，最后右转 90 度恢复朝向；其他选项的转向或步数走不到苹果。' },
+  { q:'小猫看到一个苹果（如图），下面哪段程序可以让小猫拿到苹果？', figure:
+      '<div class="q10strip" style="gap:14px">' +
+        '<svg class="shape" style="width:200px; height:104px" viewBox="0 0 200 104">' +
+          '<rect width="200" height="78" fill="#aee6f9"/><rect y="78" width="200" height="26" fill="#59a84f"/>' +
+          '<text x="14" y="74" font-size="30">🐱</text><text x="168" y="66" font-size="26">🍎</text>' +
+        '</svg>' +
+        '<svg class="shape" style="width:200px; height:104px" viewBox="0 0 200 104">' +
+          '<rect width="200" height="78" fill="#aee6f9"/><rect y="78" width="200" height="26" fill="#59a84f"/>' +
+          '<text x="14" y="74" font-size="30">🐱</text><text x="42" y="66" font-size="26">🍎</text>' +
+        '</svg>' +
+      '</div>',
+    htmlOpts:true,
+    opts:[
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div><div class="sb cmo">左转 ↺ <span class="pill">90</span> 度</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div><div class="sb cmo">右转 ↻ <span class="pill">90</span> 度</div></div>',
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div><div class="sb cmo">左转 ↺ <span class="pill">90</span> 度</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div></div>',
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div><div class="sb cmo">右转 ↻ <span class="pill">90</span> 度</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div></div>',
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div><div class="sb cmo">右转 ↻ <span class="pill">90</span> 度</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div><div class="sb cmo">左转 ↺ <span class="pill">90</span> 度</div></div>'
+    ],
+    ans:0,
+    exp:'小猫面向右：先移动 100 步到苹果正下方，左转 90 度面向上、再移动 100 步正好拿到苹果，最后右转 90 度恢复原来的朝向（和右图一样面向右）。B 少了最后恢复朝向的一步；C、D 一开始就右转 90 度是朝下走，越走越远。' },
   { q:'在 Scratch 中，以下哪个图标可以从本地电脑上传一张背景图像？', img:'img/q18.png', opts:[], ans:0,
     exp:'「上传背景」按钮可以从本地电脑选择图片文件。' },
   { q:'如下图所示，判断下面哪句话是假的？', img:'img/q19.png', opts:['小猫有一个黑色的鼻子','熊有三只耳朵','小猫看起来很高兴','蝴蝶有两条触须'], ans:1,
