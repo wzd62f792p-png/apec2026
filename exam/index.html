@@ -133,6 +133,47 @@
     opacity:0; pointer-events:none; transition:opacity .25s; z-index:99;
   }
   .toast.show{opacity:.92}
+  /* ---------- 在线练习 ---------- */
+  .editor-box{border:1.5px solid var(--line); border-radius:12px; overflow:hidden; background:#0e1116}
+  .editor-box iframe{width:100%; height:600px; border:0; display:block}
+  @media (max-width:640px){ .editor-box iframe{height:460px} }
+  .editor-note{
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center;
+    padding:10px 14px; background:var(--blue-l); font-size:14px; color:var(--blue-d);
+    border-radius:0 0 12px 12px;
+  }
+  .plat{display:flex; gap:10px; flex-wrap:wrap}
+
+  /* ---------- 积木排序闯关 ---------- */
+  .pool{display:flex; flex-wrap:wrap; gap:8px}
+  .blk{
+    display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px;
+    color:#fff; font-weight:600; cursor:pointer; user-select:none; font-size:15px;
+    box-shadow:0 2px 0 rgba(0,0,0,.18); border:0;
+  }
+  .blk:active{transform:translateY(1px)}
+  .blk.used{opacity:.3; pointer-events:none}
+  .blk.c-event{background:#e6a817}
+  .blk.c-motion{background:#4c97ff}
+  .blk.c-looks{background:#9966ff}
+  .blk.c-control{background:#ffab19}
+  .blk.c-sensing{background:#5cb1d6}
+  .blk.c-sound{background:#cf63cf}
+  .ansbar{
+    min-height:56px; border:2px dashed #b9c8e3; border-radius:12px; padding:8px;
+    display:flex; flex-wrap:wrap; gap:8px; align-items:center; background:#fbfdff;
+  }
+  .ansbar .blk{cursor:pointer}
+  .ansbar .slot{display:inline-block; width:70px; height:26px; border-radius:8px; background:#e7edf7; border:1px dashed #b9c8e3}
+  .drill-foot{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center}
+  .stars{color:var(--warn); font-size:18px; letter-spacing:4px}
+  .dots{display:flex; gap:8px}
+  .dot{width:12px; height:12px; border-radius:50%; background:#d7dfee}
+  .dot.on{background:var(--blue)}
+  .dot.ok{background:var(--ok)}
+  #drill-msg.ok{color:var(--ok); font-weight:700}
+  #drill-msg.bad{color:var(--bad)}
+
   @media (prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important} }
 </style>
 </head>
@@ -177,8 +218,42 @@
   </div>
 
   <div class="card">
-    <h2>一级考纲范围（本卷只考这些）</h2>
-    <p>Scratch 界面认识（舞台、角色、积木区、脚本区）；积木分类（运动、外观、声音、事件、控制、侦测等）；常用积木的功能与位置；简单顺序结构与循环；坐标与方向初步；角色与背景的基本操作。</p>
+    <h2>在线编程练习（Scratch 编辑器，可直接动手写）</h2>
+    <p class="muted" style="margin-bottom:10px">下面是内嵌的 Scratch 全功能编辑器（TurboWarp 版，与正式考试编辑器操作一致），点积木就能编程；做完编程题后用它演示给家长看。</p>
+    <div class="editor-box">
+      <iframe id="tw-editor" src="https://turbowarp.org/editor?locale=zh-cn" loading="lazy"
+        allow="fullscreen; autocorrect" allowfullscreen title="Scratch 在线编辑器"></iframe>
+    </div>
+    <div class="editor-note">
+      <span>右上角菜单 → 文件 → 保存到电脑，可把作品存成 .sb3；加载慢时可点右边按钮单独打开。</span>
+      <a class="btn small" href="https://turbowarp.org/editor?locale=zh-cn" target="_blank" rel="noopener">新标签页全屏打开</a>
+    </div>
+    <div class="plat" style="margin-top:12px">
+      <span class="muted" style="align-self:center">更多练习平台：</span>
+      <a class="btn small ghost" href="https://coco.codemao.cn/" target="_blank" rel="noopener">CoCo 编程社区</a>
+      <a class="btn small ghost" href="https://coding.qq.com/" target="_blank" rel="noopener">腾讯扣叮</a>
+      <a class="btn small ghost" href="https://www.codemao.cn/" target="_blank" rel="noopener">编程猫</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>考前热身 · 积木排序闯关</h2>
+    <p class="muted">按正确的执行顺序「点击积木」放进下面的答题条；点错了点答题条里的积木可以拿回去。全部排对亮一颗星。</p>
+    <div class="dots" id="drill-dots" style="margin:12px 0"></div>
+    <div id="drill-body">
+      <h3 id="drill-title" style="font-size:16px; color:var(--blue-d)">—</h3>
+      <p id="drill-goal" style="font-size:15px; margin:6px 0 12px">—</p>
+      <div id="drill-pool" class="pool"></div>
+      <p class="muted" style="margin:8px 0 4px">答题条（按顺序点击）：</p>
+      <div id="drill-ans" class="ansbar"><span class="muted" id="drill-empty">还没放积木，点击上方积木开始</span></div>
+      <div class="drill-foot">
+        <button class="btn ok" id="drill-check" type="button">检查答案</button>
+        <button class="btn ghost" id="drill-clear" type="button">清空重排</button>
+        <button class="btn" id="drill-next" type="button" disabled>下一关</button>
+        <span class="stars" id="drill-stars"></span>
+        <span class="muted" id="drill-msg"></span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -628,6 +703,160 @@ window.addEventListener('beforeunload', function(e){
 document.addEventListener('visibilitychange', function(){
   if (document.hidden) saveState(S);
 });
+
+/* ================= 积木排序闯关 ================= */
+/* blocks 数组即正确顺序；disp 是打乱后的展示顺序（block 下标） */
+var DRILLS = [
+  { title:'第 1 关 · 小猫自我介绍', goal:'点击绿旗后，小猫说「大家好，我是小猫！」2 秒，然后向前移动 100 步。',
+    blocks:[
+      { t:'当绿旗被点击', c:'c-event' },
+      { t:'说「大家好，我是小猫！」2 秒', c:'c-looks' },
+      { t:'移动 100 步', c:'c-motion' }
+    ], disp:[2,0,1] },
+  { title:'第 2 关 · 小猫走向终点', goal:'回到起点后，用循环走 10 次每次 10 步到右边，说完话再换个造型。',
+    blocks:[
+      { t:'当绿旗被点击', c:'c-event' },
+      { t:'移到 x:-180 y:0', c:'c-motion' },
+      { t:'重复执行 10 次 { 移动 10 步 }', c:'c-control' },
+      { t:'说「我到终点啦！」', c:'c-looks' },
+      { t:'下一个造型', c:'c-looks' }
+    ], disp:[3,0,4,1,2] },
+  { title:'第 3 关 · 小猫躲猫猫', goal:'按下空格后小猫消失，2 秒后在随机的新位置突然出现。',
+    blocks:[
+      { t:'当按下 空格', c:'c-event' },
+      { t:'隐藏', c:'c-looks' },
+      { t:'等待 2 秒', c:'c-control' },
+      { t:'移到 x:(−200到200随机) y:(−150到150随机)', c:'c-motion' },
+      { t:'显示', c:'c-looks' }
+    ], disp:[4,2,0,3,1] }
+];
+var DKEY = 'scratchExamMock.drills';
+var dSolved = (function(){
+  try { return JSON.parse(localStorage.getItem(DKEY) || 'null') || [false, false, false]; }
+  catch (e) { return [false, false, false]; }
+})();
+var dCur = dSolved.findIndex(function(x){ return !x; });
+if (dCur < 0) dCur = 0;
+var dPicks = [];
+
+function drillSave(){
+  try { localStorage.setItem(DKEY, JSON.stringify(dSolved)); } catch (e) {}
+}
+function drillStars(){
+  var n = dSolved.filter(Boolean).length;
+  $('drill-stars').textContent = n ? '★★★★★★★★★★'.slice(0, n * 2) : '';
+}
+function drillRender(){
+  var d = DRILLS[dCur];
+  $('drill-title').textContent = d.title;
+  $('drill-goal').textContent = d.goal;
+  var pool = $('drill-pool');
+  pool.innerHTML = '';
+  d.disp.forEach(function(bi){
+    var b = d.blocks[bi];
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'blk ' + b.c + (dPicks.indexOf(bi) >= 0 ? ' used' : '');
+    btn.textContent = b.t;
+    btn.setAttribute('data-bi', bi);
+    pool.appendChild(btn);
+  });
+  var ans = $('drill-ans');
+  ans.innerHTML = '';
+  if (!dPicks.length){
+    var hint = document.createElement('span');
+    hint.className = 'muted';
+    hint.id = 'drill-empty';
+    hint.textContent = '还没放积木，点击上方积木开始';
+    ans.appendChild(hint);
+  } else {
+    dPicks.forEach(function(bi){
+      var b = d.blocks[bi];
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'blk ' + b.c;
+      btn.textContent = b.t;
+      btn.setAttribute('data-pick', bi);
+      ans.appendChild(btn);
+    });
+    for (var i = dPicks.length; i < d.blocks.length; i++){
+      var slot = document.createElement('span');
+      slot.className = 'slot';
+      ans.appendChild(slot);
+    }
+  }
+  var dots = $('drill-dots');
+  dots.innerHTML = '';
+  DRILLS.forEach(function(_, i){
+    var s = document.createElement('span');
+    s.className = 'dot' + (i === dCur ? ' on' : '') + (dSolved[i] ? ' ok' : '');
+    dots.appendChild(s);
+  });
+  $('drill-next').disabled = !dSolved[dCur] || dCur >= DRILLS.length - 1;
+  $('drill-msg').textContent = dSolved[dCur] ? '这关已通过！' : '';
+  $('drill-msg').className = dSolved[dCur] ? 'ok' : '';
+  drillStars();
+}
+function drillPlace(bi){
+  if (dSolved[dCur] || dPicks.indexOf(bi) >= 0) return;
+  dPicks.push(bi);
+  var m = $('drill-msg');
+  m.textContent = '';
+  m.className = '';
+  drillRender();
+}
+function drillTakeBack(bi){
+  var i = dPicks.indexOf(bi);
+  if (i < 0) return;
+  dPicks.splice(i, 1);
+  drillRender();
+}
+$('drill-pool').addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('[data-bi]');
+  if (b) drillPlace(Number(b.getAttribute('data-bi')));
+});
+$('drill-ans').addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('[data-pick]');
+  if (b) drillTakeBack(Number(b.getAttribute('data-pick')));
+});
+$('drill-check').addEventListener('click', function(){
+  var d = DRILLS[dCur];
+  if (dPicks.length < d.blocks.length){
+    $('drill-msg').textContent = '还有 ' + (d.blocks.length - dPicks.length) + ' 块积木没放进去';
+    $('drill-msg').className = 'bad';
+    return;
+  }
+  var wrongAt = -1;
+  for (var i = 0; i < dPicks.length; i++){
+    if (dPicks[i] !== i){ wrongAt = i; break; }
+  }
+  var m = $('drill-msg');
+  if (wrongAt < 0){
+    dSolved[dCur] = true;
+    drillSave();
+    m.textContent = '✓ 全部正确，闯关成功！';
+    m.className = 'ok';
+    toast('闯关成功！');
+  } else {
+    m.textContent = '第 ' + (wrongAt + 1) + ' 块不对：先想想程序从哪块积木开始，再想想谁先执行';
+    m.className = 'bad';
+  }
+  drillRender();
+});
+$('drill-clear').addEventListener('click', function(){
+  dPicks = [];
+  $('drill-msg').textContent = '';
+  $('drill-msg').className = '';
+  drillRender();
+});
+$('drill-next').addEventListener('click', function(){
+  if (dCur < DRILLS.length - 1){
+    dCur++;
+    dPicks = [];
+    drillRender();
+  }
+});
+drillRender();
 </script>
 </body>
 </html>
