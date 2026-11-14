@@ -499,8 +499,15 @@ var MC = [
     exp:'「音调」音效按顺序变化：设为 100 → 增加 -10（90）→ 设为 50 → 增加 -10（40）→ 设为 10 → 增加 10（20），最后是 20。注意「设为」直接覆盖、「增加」在当前值上加。' },
   { q:'在程序里，角色有多个造型，下列哪个代码最终是显示造型 3 的？', img:'img/q21.png', opts:[], ans:1,
     exp:'指定切换到某个造型，用「将造型切换为 …」；一次「下一个造型」只会到造型 2。' },
-  { q:'下列选项中，哪个能完成使默认角色向右移动 20 步？', img:'img/q22.png', opts:[], ans:0,
-    exp:'角色面向右，「移动 20 步」就是向右前进 20 步；-20 是向反方向退。' },
+  { q:'下列选项中，哪个能完成使默认角色向右移动 20 步？', htmlOpts:true,
+    opts:[
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">移动 <span class="pill">10</span> 步</div><div class="sb cmo">移动 <span class="pill">10</span> 步</div></div>',
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">移动 <span class="pill">30</span> 步</div></div>',
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">移动 <span class="pill">20</span> 步</div><div class="sb cmo">移动 <span class="pill">-10</span> 步</div></div>',
+      '其他三项都不是'
+    ],
+    ans:0,
+    exp:'默认角色面向右。A 两块「移动 10 步」共前进 20 步，正好；B 移动 30 步多了；C 先走 20 步再往回 10 步，只到 10 步的位置；所以 D 也不对。' },
   { q:'小猫过生日，我们为它播放生日快乐歌，之后小猫高兴的喵了一声，下列代码哪个能正确的实现这个场景？', img:'img/q23.png', opts:[], ans:0,
     exp:'「等待播完」会让歌曲完整放完，才继续执行后面的积木；不等待的话两首歌会同时响。' },
   { q:'下面哪段代码可以实现小猫一面唱歌，一面走路？', img:'img/q24.png', opts:[], ans:1,
