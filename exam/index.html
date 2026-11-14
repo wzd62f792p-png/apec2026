@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scratch 模拟考场 · 横琴赛初赛全真模拟</title>
+<title>Scratch 一级模拟考试 · 青少年软件编程等级考试测试卷</title>
 <style>
   :root{
     --blue:#1d4ed8; --blue-d:#0f3a8c; --blue-l:#e8effd;
@@ -22,33 +22,26 @@
   a{color:var(--blue)}
   .wrap{max-width:980px; margin:0 auto; padding:16px}
 
-  /* ---------- 通用卡片 ---------- */
   .card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; margin-bottom:16px}
   .card h2{font-size:18px; color:var(--blue-d); margin-bottom:12px}
   .muted{color:var(--mut); font-size:14px}
 
-  /* ---------- 顶部横幅 ---------- */
   .topbar{
     background:linear-gradient(135deg, var(--blue-d), var(--blue));
     color:#fff; border-radius:14px; padding:22px 20px; margin-bottom:16px;
-    display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between;
   }
   .topbar .t1{font-size:22px; font-weight:700; letter-spacing:1px}
-  .topbar .t2{font-size:14px; opacity:.85; margin-top:4px}
-  .real-card{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+  .topbar .t2{font-size:14px; opacity:.85; margin-top:6px}
   .btn{
     padding:10px 18px; border-radius:9px; font-weight:600; display:inline-flex; align-items:center; gap:8px;
     background:var(--blue); color:#fff; text-decoration:none;
   }
   .btn:hover{background:var(--blue-d)}
   .btn.ghost{background:#fff; color:var(--blue-d); border:1px solid var(--blue)}
-  .btn.small{padding:6px 12px; font-size:14px}
   .btn.ok{background:var(--ok)} .btn.ok:hover{background:#12813a}
   .btn.danger{background:var(--bad)} .btn.danger:hover{background:#b91c1c}
   .btn:disabled{opacity:.5; cursor:not-allowed}
-  svg.ic{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
 
-  /* ---------- 登录 ---------- */
   .login-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:16px}
   @media (max-width:800px){ .login-grid{grid-template-columns:1fr} }
   .field{margin-bottom:14px}
@@ -59,14 +52,9 @@
   }
   .field input:focus{outline:none; border-color:var(--blue); box-shadow:0 0 0 3px var(--blue-l)}
   .err{color:var(--bad); font-size:13px; margin-top:6px; display:none}
-  .notice li{margin:8px 0 8px 4px; padding-left:4px}
+  .notice li{margin:8px 0 8px 4px}
   .notice li::marker{color:var(--blue)}
-  .count-box{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px}
-  .count-cell{background:var(--blue-l); color:var(--blue-d); border-radius:10px; padding:10px 0; flex:1; min-width:64px; text-align:center}
-  .count-cell b{display:block; font-size:24px; font-variant-numeric:tabular-nums}
-  .count-cell span{font-size:12px; color:var(--mut)}
 
-  /* ---------- 考试页 ---------- */
   .exambar{
     position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid var(--line);
     box-shadow:0 2px 10px rgba(15,58,140,.08);
@@ -80,13 +68,12 @@
   }
   .timer.hurry{background:var(--bad-l); color:var(--bad); animation:blink 1s infinite}
   @keyframes blink{50%{opacity:.55}}
-  .palette{display:flex; gap:6px; flex-wrap:wrap}
+  .palette{display:flex; gap:5px; flex-wrap:wrap}
   .chip{
-    width:36px; height:32px; border-radius:8px; background:#eef2f9; color:var(--mut);
-    font-size:13px; display:flex; align-items:center; justify-content:center; font-weight:600;
+    width:32px; height:30px; border-radius:7px; background:#eef2f9; color:var(--mut);
+    font-size:12px; display:flex; align-items:center; justify-content:center; font-weight:600;
   }
   .chip.done{background:var(--blue); color:#fff}
-  .chip.cur{outline:2px solid var(--blue-d)}
   .chip.sec{width:auto; padding:0 10px; font-size:12px}
 
   .qcard{scroll-margin-top:130px}
@@ -123,7 +110,6 @@
   .footbar{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:22px 0 40px}
   .footbar .btn{padding:13px 30px; font-size:17px}
 
-  /* ---------- 成绩页 ---------- */
   .score-hero{display:flex; flex-wrap:wrap; gap:18px; align-items:center}
   .score-big{font-size:56px; font-weight:800; color:var(--blue-d); font-variant-numeric:tabular-nums}
   .score-big small{font-size:20px; color:var(--mut); font-weight:600}
@@ -155,31 +141,8 @@
 <!-- ================= 登录 / 考试须知 ================= -->
 <section id="view-login" class="wrap">
   <div class="topbar">
-    <div>
-      <div class="t1">Scratch 模拟考场</div>
-      <div class="t2">横琴赛初赛 · 全真模拟 ｜ 2026年11月15日 10:00–11:30</div>
-    </div>
-    <div class="real-card">
-      <a class="btn" href="https://hengqin.fiitc.org.cn/examLogin" target="_blank" rel="noopener">
-        <svg class="ic" viewBox="0 0 24 24"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/></svg>
-        打开真实比赛入口
-      </a>
-      <button class="btn ghost" id="btn-copy" type="button">
-        <svg class="ic" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-        复制准考证号 <b id="ticket-show">91770179</b>
-      </button>
-    </div>
-  </div>
-
-  <div class="card" style="border-left:5px solid var(--warn)">
-    <h2>距真实比赛开始还剩</h2>
-    <div class="count-box" id="countdown">
-      <div class="count-cell"><b id="cd-d">--</b><span>天</span></div>
-      <div class="count-cell"><b id="cd-h">--</b><span>时</span></div>
-      <div class="count-cell"><b id="cd-m">--</b><span>分</span></div>
-      <div class="count-cell"><b id="cd-s">--</b><span>秒</span></div>
-    </div>
-    <p class="muted" id="cd-tip" style="margin-top:8px">开考后请使用上方「打开真实比赛入口」按钮进入正式考场，用准考证号登录。</p>
+    <div class="t1">青少年软件编程（Scratch）等级考试 · 一级</div>
+    <div class="t2">模拟测试卷 ｜ 考试时间 60 分钟 ｜ 满分 100 分 ｜ 单选 25 题 × 2 分 · 判断 10 题 × 3 分 · 编程 2 题 × 10 分</div>
   </div>
 
   <div class="login-grid">
@@ -190,27 +153,32 @@
         <input id="in-name" maxlength="12" placeholder="请输入姓名" autocomplete="off">
       </div>
       <div class="field">
-        <label for="in-ticket">准考证号</label>
-        <input id="in-ticket" maxlength="8" inputmode="numeric" placeholder="8 位准考证号" autocomplete="off">
+        <label for="in-ticket">准考证号（可自定，仅用于模拟）</label>
+        <input id="in-ticket" maxlength="8" inputmode="numeric" placeholder="8 位数字" autocomplete="off">
         <div class="err" id="ticket-err">准考证号应为 8 位数字</div>
       </div>
       <button class="btn ok" id="btn-login" type="button" style="width:100%; justify-content:center; padding:13px">
         登录并阅读须知
       </button>
-      <p class="muted" style="margin-top:10px">本页为<b>模拟练习</b>，不与真实考试系统相连；答案保存在本设备，可随时重考。</p>
+      <p class="muted" style="margin-top:10px">本页为<b>家庭模拟考试</b>，不与正式考试系统相连；答案保存在本设备，可反复重考。</p>
     </div>
 
     <div class="card notice">
-      <h2>考生须知（模拟）</h2>
+      <h2>考生须知</h2>
       <ol>
-        <li>比赛时长 <b>90 分钟</b>，进入考场后自动开始计时。</li>
-        <li>试卷共三部分：<b>单项选择 10 题</b>（每题 4 分）、<b>判断 5 题</b>（每题 2 分）、<b>编程实操 3 题</b>（共 50 分）。</li>
-        <li>编程题请在<b>本机 Scratch 编辑器</b>中完成，完成后回页面勾选「验收点」自评得分。</li>
-        <li>答案<b>自动保存</b>，意外关闭页面后重新登录可继续作答，计时不清零。</li>
-        <li>时间用完将<b>自动交卷</b>；也可随时点击「交卷」提前结束。</li>
-        <li>交卷后立即出分，并附<b>逐题解析</b>。</li>
+        <li>考试时长 <b>60 分钟</b>，点击「开始考试」后自动计时。</li>
+        <li>试卷共三部分：<b>单项选择 25 题</b>（每题 2 分，共 50 分）、<b>判断 10 题</b>（每题 3 分，共 30 分）、<b>编程题 2 题</b>（每题 10 分，共 20 分）。</li>
+        <li>编程题请在<b>本机 Scratch 编辑器</b>中完成，完成后回到页面勾选「验收点」自评得分。</li>
+        <li>答案<b>自动保存</b>；意外关闭页面后重新登录可继续作答，计时不清零。</li>
+        <li>时间用完将<b>自动交卷</b>；也可点击「交卷」提前结束。</li>
+        <li>交卷后立即出分，附<b>逐题解析</b>，错题要弄懂再重考。</li>
       </ol>
     </div>
+  </div>
+
+  <div class="card">
+    <h2>一级考纲范围（本卷只考这些）</h2>
+    <p>Scratch 界面认识（舞台、角色、积木区、脚本区）；积木分类（运动、外观、声音、事件、控制、侦测等）；常用积木的功能与位置；简单顺序结构与循环；坐标与方向初步；角色与背景的基本操作。</p>
   </div>
 </section>
 
@@ -218,12 +186,12 @@
 <section id="view-exam" hidden>
   <div class="exambar">
     <div class="wrap">
-      <div class="who"><b id="exam-name">—</b> ｜ 准考证号 <b id="exam-ticket">—</b> ｜ <span id="exam-mode">练习模式</span></div>
+      <div class="who"><b id="exam-name">—</b> ｜ 准考证号 <b id="exam-ticket">—</b> ｜ 一级模拟卷</div>
       <div class="palette" id="palette"></div>
       <div style="display:flex; gap:10px; align-items:center">
         <div class="timer" id="timer">
-          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          <span id="timer-text">90:00</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span id="timer-text">60:00</span>
         </div>
         <button class="btn danger" id="btn-submit-top" type="button">交卷</button>
       </div>
@@ -246,66 +214,99 @@
 /* ================= 考试配置 ================= */
 var EXAM = {
   student: '谷彦泽',
-  ticket: '91770179',
-  title: '横琴赛初赛 · 全真模拟（Scratch）',
-  realStart: new Date('2026-11-15T10:00:00+08:00'),
-  realEnd: new Date('2026-11-15T11:30:00+08:00'),
-  durationMin: 90,
+  title: '青少年软件编程（Scratch）等级考试（一级）· 模拟测试卷',
+  durationMin: 60,
   storeKey: 'scratchExamMock.v1'
 };
 
-/* ---------- 单选题（每题 4 分） ---------- */
+/* ---------- 一、单项选择（25 题 × 2 分 = 50 分） ---------- */
 var MC = [
-  { id:'q1', q:'Scratch 3.0 中，舞台的大小是？', opts:['宽 480 × 高 360','宽 360 × 高 480','宽 640 × 高 480','宽 240 × 高 180'], ans:0,
-    exp:'舞台宽 480（x 范围 −240～240）、高 360（y 范围 −180～180），这是必背的基础常识。' },
-  { id:'q2', q:'角色的 x 坐标取值范围是？', opts:['0 ～ 480','−240 ～ 240','−180 ～ 180','没有任何限制'], ans:1,
-    exp:'x 对应横向，范围 −240～240；y 对应纵向，范围 −180～180。' },
-  { id:'q3', q:'让角色面向鼠标指针（不移动位置），应使用哪块积木？', opts:['面向 90 方向','面向 鼠标指针','移到 鼠标指针','面向 边缘'], ans:1,
-    exp:'「面向」只改变朝向；「移到 鼠标指针」会让角色直接移动到鼠标位置。' },
-  { id:'q4', q:'「说“你好！”2 秒」和「说“你好！”」的区别是？', opts:['完全相同','前者显示 2 秒后气泡消失，后者一直显示','前者不显示文字','后者只显示 1 秒'], ans:1,
-    exp:'不带秒数的「说」会一直显示，直到执行「说“”」或换剧本。' },
-  { id:'q5', q:'下列哪块积木属于「控制」类别？', opts:['等待 1 秒','播放声音 喵','移动 10 步','在 1 到 10 间取随机数'], ans:0,
-    exp:'「等待 1 秒」是控制类橙色积木；随机数属于运算类（绿色）。' },
-  { id:'q6', q:'角色在坐标 (0, 0)、面向右（90°），执行「移动 100 步」后坐标变为？', opts:['(100, 0)','(0, 100)','(0, −100)','(−100, 0)'], ans:0,
-    exp:'面向 90° 向右移动，只改变 x：0 + 100 = 100，y 不变。' },
-  { id:'q7', q:'关于「广播」积木，下列说法正确的是？', opts:['只能发给舞台背景','所有角色都能接收同一条消息并各自响应','一次只能指定发给某一个角色','广播后整个程序立即停止'], ans:1,
-    exp:'广播是一条消息，多个角色的「当接收到 消息1」脚本会同时被触发。' },
-  { id:'q8', q:'要反复执行一段积木，直到某个条件成立才停止，应使用？', opts:['重复执行','重复执行 10 次','重复执行直到 <条件>','等待 1 秒'], ans:2,
-    exp:'「重复执行直到」每圈先判断条件，条件成立就停止循环。' },
-  { id:'q9', q:'下列哪个不是 Scratch 3.0 默认的积木类别？', opts:['画笔','运算','侦测','变量'], ans:0,
-    exp:'默认九大类：运动、外观、声音、事件、控制、侦测、运算、变量、自制积木；画笔需从扩展库添加。' },
-  { id:'q10', q:'关于变量，下列说法正确的是？', opts:['变量只能保存数字','新建变量后可勾选“在舞台上显示”','每个角色必须单独新建变量','变量不能保存文字'], ans:1,
-    exp:'变量既可存数字也可存文字；勾选后变量值会显示在舞台左上角，接苹果计分常用它。' }
+  { q:'Scratch 是一款什么类型的软件？', opts:['图形化编程软件','视频播放器','办公表格软件','网页浏览器'], ans:0,
+    exp:'Scratch 用「搭积木」的方式编程，不需要敲代码，是图形化编程软件。' },
+  { q:'打开 Scratch 3.0 后，舞台上默认的角色是？', opts:['小猫','小狗','太空人','没有角色'], ans:0,
+    exp:'默认角色就是那只橙色的小猫（Cat）。' },
+  { q:'想添加一个新角色，应点击哪个按钮？', opts:['角色区的「选择一个角色」','背景区的「选择一个背景」','绿旗','停止按钮'], ans:0,
+    exp:'角色在右下角角色区添加；背景在舞台右下方背景区添加，别混了。' },
+  { q:'Scratch 默认的积木分类一共有几类？', opts:['9 类','6 类','12 类','15 类'], ans:0,
+    exp:'九大类：运动、外观、声音、事件、控制、侦测、运算、变量、自制积木。' },
+  { q:'「移动 10 步」积木属于哪个分类？', opts:['运动','外观','事件','运算'], ans:0,
+    exp:'移动、旋转、坐标类积木都在深蓝色的「运动」分类里。' },
+  { q:'「说“你好！”」积木属于哪个分类？', opts:['外观','运动','声音','控制'], ans:0,
+    exp:'说话、思考、切换造型、隐藏显示都在紫色的「外观」分类。' },
+  { q:'让程序开始运行，应点击舞台上的？', opts:['绿旗','红色按钮','黑旗','空格键'], ans:0,
+    exp:'点击绿旗开始；红色八边形是停止。' },
+  { q:'要停止正在运行的程序，应点击？', opts:['绿旗','红色八边形按钮','关闭窗口','保存按钮'], ans:1,
+    exp:'停止按钮是舞台上方绿旗旁边的红色八边形。' },
+  { q:'方向 90° 表示角色面向哪里？', opts:['右','上','左','下'], ans:0,
+    exp:'0°向上、90°向右、180°向下、−90°向左。' },
+  { q:'要让角色从舞台上看不见，应使用哪块积木？', opts:['隐藏','显示','移动 10 步','等待 1 秒'], ans:0,
+    exp:'「隐藏」让角色消失，「显示」让角色重新出现，都属于外观分类。' },
+  { q:'「播放声音 喵」积木属于哪个分类？', opts:['声音','外观','事件','侦测'], ans:0,
+    exp:'粉红色的「声音」分类，可以播放、停止声音，还能录制。' },
+  { q:'「当绿旗被点击」属于哪个分类？', opts:['事件','控制','侦测','运动'], ans:0,
+    exp:'它是黄色「事件」分类的帽子积木，程序一般由它开始。' },
+  { q:'「等待 2 秒」积木属于哪个分类？', opts:['控制','事件','外观','运算'], ans:0,
+    exp:'「控制」分类是橙色的，有等待、重复执行、如果…那么等积木。' },
+  { q:'舞台正中央的坐标是？', opts:['(0, 0)','(100, 100)','(240, 180)','(0, 180)'], ans:0,
+    exp:'舞台中心是原点 (0, 0)，x 向右为正、y 向上为正。' },
+  { q:'舞台右上角的位置，坐标有什么特点？', opts:['x 是正数，y 是正数','x 是负数，y 是负数','x 是正数，y 是负数','x 是负数，y 是正数'], ans:0,
+    exp:'右半边 x 为正，上半边 y 为正，所以右上角两个都是正数。' },
+  { q:'新建角色的默认大小是？', opts:['100','50','200','10'], ans:0,
+    exp:'默认 100 表示原大小；数字越小角色越小，越大角色越大。' },
+  { q:'想给舞台换一个背景，应点击？', opts:['「选择一个背景」按钮','「选择一个角色」按钮','绿旗','停止按钮'], ans:0,
+    exp:'背景在舞台右下角的背景区添加。' },
+  { q:'「重复执行 10 次」积木属于哪个分类？', opts:['控制','运算','事件','变量'], ans:0,
+    exp:'所有重复类积木都在橙色「控制」分类里。' },
+  { q:'哪块积木可以让角色回到舞台正中央？', opts:['移到 x:0 y:0','移动 10 步','面向 90 方向','等待 1 秒'], ans:0,
+    exp:'中心坐标是 (0, 0)，所以用「移到 x:0 y:0」。' },
+  { q:'删除一个角色的正确方法是？', opts:['选中角色后点右上角的小 ×','点击绿旗','按 F5 键','Scratch 里不能删除角色'], ans:0,
+    exp:'角色缩略图右上角的小 × 就是删除按钮。' },
+  { q:'「说“你好！”」和「思考“你好！”」的区别是？', opts:['一个是对话气泡，一个是思考云','完全一样','思考不显示文字','说不显示文字'], ans:0,
+    exp:'说 = 对话气泡；思考 = 云朵形的思考框，都能显示文字。' },
+  { q:'「碰到 鼠标指针？」积木属于哪个分类？', opts:['侦测','外观','声音','控制'], ans:0,
+    exp:'浅蓝色的「侦测」分类，用来判断碰撞、按键、距离等。' },
+  { q:'想让按下空格键时角色做动作，脚本应从哪块积木开始？', opts:['当按下 空格','当绿旗被点击','重复执行','等待 1 秒'], ans:0,
+    exp:'按键触发用「当按下 某键」，它属于事件分类。' },
+  { q:'保存作品，应该在菜单里点击？', opts:['文件 → 保存到电脑','编辑 → 清空舞台','停止按钮','绿旗'], ans:0,
+    exp:'Scratch 作品文件一般保存为 .sb3 文件。' },
+  { q:'一个角色可以编写几个脚本？', opts:['可以有多个脚本','只能一个','只能两个','不能编写脚本'], ans:0,
+    exp:'一个角色可以同时拥有很多段脚本，它们可以同时运行。' }
 ];
 
-/* ---------- 判断题（每题 2 分，ans: true/false） ---------- */
+/* ---------- 二、判断（10 题 × 3 分 = 30 分，ans: true/false） ---------- */
 var TF = [
-  { id:'t1', q:'Scratch 中角色有三种旋转模式：任意旋转、左右翻转、不旋转。', ans:true,
-    exp:'在角色信息面板可切换这三种旋转模式。' },
-  { id:'t2', q:'「等待 1 秒」积木在「运动」类别里。', ans:false,
-    exp:'它在「控制」类别（橙色），运动类只有移动、旋转、坐标类积木。' },
-  { id:'t3', q:'通过克隆产生的克隆体，同一时刻最多约 300 个。', ans:true,
-    exp:'Scratch 限制同屏克隆体上限为 300 个，超过后不再克隆。' },
-  { id:'t4', q:'舞台（背景）可以执行「移动 10 步」。', ans:false,
-    exp:'舞台不能移动，舞台只能用外观（切换背景）、声音、事件、控制等积木。' },
-  { id:'t5', q:'广播消息只有收到该消息的角色，才会执行「当接收到 …」里的脚本。', ans:true,
-    exp:'没写「当接收到」这个消息的脚本的角色不会响应。' }
+  { q:'Scratch 中可以添加多个角色，每个角色都可以有自己的脚本。', ans:true,
+    exp:'角色区可以放很多角色，每个角色单独编写脚本。' },
+  { q:'点击绿旗后，「当绿旗被点击」下面的积木就会开始执行。', ans:true,
+    exp:'绿旗是启动开关，点击后帽子积木下面的脚本才开始运行。' },
+  { q:'「移动 10 步」会让角色向上跳 10 个坐标。', ans:false,
+    exp:'「移动 10 步」是沿角色当前面向的方向前进，不是向上跳。' },
+  { q:'「等待 1 秒」积木在「事件」分类里。', ans:false,
+    exp:'它在「控制」分类里，事件分类放的是「当…」开头的触发积木。' },
+  { q:'舞台背景可以像角色一样执行「移动 10 步」。', ans:false,
+    exp:'舞台不能移动；舞台主要用外观类积木切换背景。' },
+  { q:'角色隐藏后，它的脚本就停止运行了。', ans:false,
+    exp:'隐藏只是看不见，脚本还在照常运行。' },
+  { q:'一个角色只能添加一个脚本。', ans:false,
+    exp:'一个角色可以有多段脚本，互不影响。' },
+  { q:'用「下一个造型」或「切换造型」可以让角色看起来动起来。', ans:true,
+    exp:'快速切换造型就是 Scratch 里最常见的走路动画做法。' },
+  { q:'Scratch 作品保存后，文件的扩展名一般是 .sb3。', ans:true,
+    exp:'Scratch 3.0 的作品文件后缀是 .sb3。' },
+  { q:'「当按下 空格」属于「控制」分类。', ans:false,
+    exp:'它属于「事件」分类，控制分类里没有「当…」开头的积木。' }
 ];
 
-/* ---------- 编程实操题（共 50 分，勾选验收点按比例得分） ---------- */
+/* ---------- 三、编程题（2 题 × 10 分 = 20 分，勾选验收点按比例得分） ---------- */
 var TASKS = [
-  { id:'p1', pts:16, per:4, title:'基础题 · 小猫走正方形（16 分）',
-    goal:'从坐标 (0,0) 出发，让小猫沿正方形路线走一圈，最后回到原点、方向恢复向右（90°）。',
-    hint:'推荐结构：重复执行 4 次 { 移动 100 步 → 右转 90 度 }。可先用「移到 x:0 y:0」保证起点。',
-    steps:['使用了「重复执行 4 次」循环结构','每次移动 100 步','每次循环右转 90 度','程序结束后小猫回到 (0,0) 且面向右'] },
-  { id:'p2', pts:16, per:4, title:'进阶题 · 接苹果（16 分）',
-    goal:'苹果从舞台顶部随机位置不断下落；碗在底部跟随鼠标左右移动；接到苹果加 1 分，并在舞台上显示得分。',
-    hint:'要点：苹果 x 设为随机数(−220~220)后从 y=180 往下落；碗「将 x 设为 鼠标的x」；「如果 碰到 苹果 → 将得分加 1 → 苹果回到顶部」。',
-    steps:['苹果的 x 坐标是随机数，且苹果会从上往下落','碗的 x 跟随鼠标移动（y 不动）','碰到苹果时得分变量加 1','接到后苹果重新回到顶部继续下落（游戏可一直玩）'] },
-  { id:'p3', pts:18, per:3, title:'挑战题 · 躲避障碍（18 分）',
-    goal:'用↑↓方向键控制角色上下移动；障碍从右侧向左移动且高度随机；碰到障碍游戏结束并显示 Game Over；有得分或存活时间显示。',
-    hint:'要点：「当按下 ↑ / ↓」控制 y 坐标增减；障碍用克隆体 + 「将 x 坐标增加 −5」实现向左移动；「重复执行直到 碰到 角色」结束；结束广播后切换 Game Over 背景/造型。',
-    steps:['方向键 ↑↓ 能控制角色上下移动','障碍从右向左移动','障碍出现的位置（高度）随机','碰到障碍时游戏结束','结束时有 Game Over 文字或画面','有得分或存活时间的显示'] }
+  { pts:10, per:2, title:'编程题 1 · 小猫自我介绍（10 分）',
+    goal:'点击绿旗后，小猫说「大家好，我是小猫！」2 秒，然后向前移动 100 步。',
+    hint:'结构：当绿旗被点击 → 说「大家好，我是小猫！」2 秒 → 移动 100 步。说话积木要选带「2 秒」的那一块。',
+    steps:['用「当绿旗被点击」作为开头','使用了「说…2 秒」积木，内容正确','使用了「移动 100 步」','积木按顺序连接，顺序正确','点击绿旗能完整演示，无报错'] },
+  { pts:10, per:2, title:'编程题 2 · 小猫走向终点（10 分）',
+    goal:'点击绿旗后，小猫用「重复执行 10 次」每次移动 10 步走到右边，走完后说「我到终点啦！」，并切换到下一个造型。',
+    hint:'结构：当绿旗被点击 → 移到 x:-180 y:0（回到起点）→ 重复执行 10 次 { 移动 10 步 } → 说「我到终点啦！」→ 下一个造型。',
+    steps:['使用「重复执行 10 次」循环移动','每次循环移动 10 步','走完后说「我到终点啦！」','有切换造型（下一个造型）','点击绿旗能完整演示，小猫停在右侧'] }
 ];
 
 /* ================= 状态管理 ================= */
@@ -332,46 +333,8 @@ function toast(msg){
 function pad2(n){ return (n < 10 ? '0' : '') + n; }
 
 /* ================= 登录页 ================= */
-var realStartLeft = EXAM.realStart - Date.now();
-function tickCountdown(){
-  var left = EXAM.realStart - Date.now();
-  if (left <= 0){
-    var inExam = Date.now() <= EXAM.realEnd;
-    $('countdown').innerHTML = inExam
-      ? '<div class="count-cell" style="flex:1"><b style="color:var(--ok)">进行中</b><span>10:00–11:30</span></div>'
-      : '<div class="count-cell" style="flex:1"><b>已结束</b><span>可继续用本页练习</span></div>';
-    clearInterval(cdTm);
-    return;
-  }
-  var d = Math.floor(left / 86400000);
-  var h = Math.floor(left % 86400000 / 3600000);
-  var m = Math.floor(left % 3600000 / 60000);
-  var s = Math.floor(left % 60000 / 1000);
-  $('cd-d').textContent = d;
-  $('cd-h').textContent = pad2(h);
-  $('cd-m').textContent = pad2(m);
-  $('cd-s').textContent = pad2(s);
-}
-var cdTm = setInterval(tickCountdown, 1000);
-tickCountdown();
-
 $('in-name').value = S.name || EXAM.student;
-$('in-ticket').value = S.ticket || EXAM.ticket;
-
-$('btn-copy').addEventListener('click', function(){
-  var done = function(){ toast('已复制：' + EXAM.ticket); };
-  if (navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(EXAM.ticket).then(done, function(){ fallbackCopy(); done(); });
-  } else { fallbackCopy(); done(); }
-});
-function fallbackCopy(){
-  var ta = document.createElement('textarea');
-  ta.value = EXAM.ticket;
-  document.body.appendChild(ta);
-  ta.select();
-  try { document.execCommand('copy'); } catch (e) {}
-  document.body.removeChild(ta);
-}
+$('in-ticket').value = S.ticket || '20261101';
 
 $('btn-login').addEventListener('click', function(){
   var name = $('in-name').value.trim();
@@ -382,24 +345,13 @@ $('btn-login').addEventListener('click', function(){
   if (!name){ toast('请输入姓名'); $('in-name').focus(); return; }
   S.name = name; S.ticket = tk;
   saveState(S);
-  if (S.startedAt && !S.submitted){
-    toast('检测到未完成的答卷，继续作答，计时不清零');
-  }
+  if (S.startedAt && !S.submitted) toast('检测到未完成的答卷，继续作答，计时不清零');
   startExamView();
 });
-
 $('in-ticket').addEventListener('input', function(){ $('ticket-err').style.display = 'none'; });
 
 /* ================= 考试页 ================= */
 var endAt = 0, timerTm = null, submitted = false;
-
-function examDeadline(){
-  var now = Date.now();
-  // 真实比赛窗口内（11/15 10:00–11:30）：以真实结束时间为准，对齐全真节奏
-  if (now >= EXAM.realStart && now <= EXAM.realEnd) return { end: EXAM.realEnd.getTime(), mode: '真实模式 · 与正式考试同步截止 11:30' };
-  var started = S.startedAt || now;
-  return { end: started + EXAM.durationMin * 60000, mode: '练习模式 · 90 分钟' };
-}
 
 function startExamView(){
   $('view-login').hidden = true;
@@ -408,9 +360,7 @@ function startExamView(){
   $('exam-name').textContent = S.name;
   $('exam-ticket').textContent = S.ticket;
   if (!S.startedAt){ S.startedAt = Date.now(); saveState(S); }
-  var d = examDeadline();
-  endAt = d.end;
-  $('exam-mode').textContent = d.mode;
+  endAt = S.startedAt + EXAM.durationMin * 60000;
   buildPaper();
   buildPalette();
   updateTimer();
@@ -421,9 +371,9 @@ function startExamView(){
 function buildPalette(){
   var box = $('palette');
   var html = '<span class="chip sec">答题卡</span>';
-  MC.forEach(function(q, i){ html += '<button class="chip" data-go="q' + q.id + '" type="button">' + (i + 1) + '</button>'; });
-  TF.forEach(function(q, i){ html += '<button class="chip" data-go="t' + q.id + '" type="button">判' + (i + 1) + '</button>'; });
-  TASKS.forEach(function(t, i){ html += '<button class="chip" data-go="p' + t.id + '" type="button">编' + (i + 1) + '</button>'; });
+  MC.forEach(function(_, i){ html += '<button class="chip" data-go="mq' + i + '" type="button">' + (i + 1) + '</button>'; });
+  TF.forEach(function(_, i){ html += '<button class="chip" data-go="tq' + i + '" type="button">判' + (i + 1) + '</button>'; });
+  TASKS.forEach(function(_, i){ html += '<button class="chip" data-go="pq' + i + '" type="button">编' + (i + 1) + '</button>'; });
   box.innerHTML = html;
   box.addEventListener('click', function(e){
     var b = e.target.closest && e.target.closest('[data-go]');
@@ -435,12 +385,12 @@ function buildPalette(){
 
 function buildPaper(){
   var html = '<div class="card"><h2>' + esc(EXAM.title) + '</h2>' +
-    '<p class="muted">共 15 道客观题（50 分）+ 3 道编程实操（50 分），满分 100 分。答案自动保存。</p></div>';
+    '<p class="muted">单项选择 25 题（50 分）+ 判断 10 题（30 分）+ 编程 2 题（20 分），满分 100 分，时长 60 分钟。答案自动保存。</p></div>';
 
-  html += '<div class="card"><h2>一、单项选择（每题 4 分，共 40 分）</h2>';
+  html += '<div class="card"><h2>一、单项选择（每题 2 分，共 50 分）</h2>';
   MC.forEach(function(q, i){
-    html += '<div class="qcard" id="q' + q.id + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
-      '<span class="qtext">' + esc(q.q) + '</span><span class="qpts">4 分</span></div><div class="opts two" data-kind="mc" data-id="' + q.id + '">';
+    html += '<div class="qcard" id="mq' + i + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
+      '<span class="qtext">' + esc(q.q) + '</span><span class="qpts">2 分</span></div><div class="opts two" data-kind="mc" data-id="' + i + '">';
     q.opts.forEach(function(o, j){
       html += '<div class="opt" data-v="' + j + '"><span class="letter">' + 'ABCD'[j] + '</span><span>' + esc(o) + '</span></div>';
     });
@@ -448,27 +398,27 @@ function buildPaper(){
   });
   html += '</div>';
 
-  html += '<div class="card"><h2>二、判断（每题 2 分，共 10 分）</h2>';
+  html += '<div class="card"><h2>二、判断（每题 3 分，共 30 分）</h2>';
   TF.forEach(function(q, i){
-    html += '<div class="qcard" id="t' + q.id + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
-      '<span class="qtext">' + esc(q.q) + '</span><span class="qpts">2 分</span></div>' +
-      '<div class="tfrow" data-kind="tf" data-id="' + q.id + '">' +
+    html += '<div class="qcard" id="tq' + i + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
+      '<span class="qtext">' + esc(q.q) + '</span><span class="qpts">3 分</span></div>' +
+      '<div class="tfrow" data-kind="tf" data-id="' + i + '">' +
       '<div class="opt on" data-v="true">正确 √</div><div class="opt off" data-v="false">错误 ×</div></div></div>';
   });
   html += '</div>';
 
-  html += '<div class="card"><h2>三、编程实操（共 50 分，按验收点自评）</h2>' +
+  html += '<div class="card"><h2>三、编程题（每题 10 分，共 20 分，按验收点自评）</h2>' +
     '<p class="muted">请在本机 Scratch 中完成，每完成一个验收点就勾选一项；得分 = 勾选比例 × 题目分值。</p>';
   TASKS.forEach(function(t, i){
-    html += '<div class="qcard task" id="p' + t.id + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
+    html += '<div class="qcard task" id="pq' + i + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
       '<span class="qtext">' + esc(t.title) + '</span><span class="qpts">' + t.pts + ' 分</span></div>' +
       '<div class="goal"><b>任务目标：</b>' + esc(t.goal) + '</div>' +
       '<p><b>提示：</b>' + esc(t.hint) + '</p>' +
-      '<div class="checks" data-kind="task" data-id="' + t.id + '">';
+      '<div class="checks" data-kind="task" data-id="' + i + '">';
     t.steps.forEach(function(st, j){
       html += '<label class="check"><input type="checkbox" data-j="' + j + '"><span>' + esc(st) + '</span></label>';
     });
-    html += '</div><div class="task-score" id="sc-' + t.id + '">本题暂得 <b>0</b> / ' + t.pts + ' 分</div></div>';
+    html += '</div><div class="task-score" id="sc-' + i + '">本题暂得 <b>0</b> / ' + t.pts + ' 分</div></div>';
   });
   html += '</div>';
 
@@ -492,7 +442,7 @@ function bindPaper(){
     if (chk){
       setTimeout(function(){
         var box = chk.parentElement, id = box.dataset.id;
-        var arr = TASKS.find(function(t){ return t.id === id; }).steps.map(function(_, j){ return false; });
+        var arr = TASKS[id].steps.map(function(){ return false; });
         Array.prototype.forEach.call(box.querySelectorAll('input'), function(inp, j){ arr[j] = inp.checked; chkPaint(inp); });
         S.answers.tasks[id] = arr;
         saveState(S); paintTaskScore(id); refreshPalette();
@@ -503,37 +453,37 @@ function bindPaper(){
 function chkPaint(inp){ inp.closest('.check').classList.toggle('done', inp.checked); }
 
 function restoreAnswers(){
-  MC.forEach(function(q){
-    var v = S.answers.mc[q.id];
+  MC.forEach(function(q, i){
+    var v = S.answers.mc[i];
     if (v === undefined) return;
-    var box = document.querySelector('[data-kind="mc"][data-id="' + q.id + '"]');
+    var box = document.querySelector('[data-kind="mc"][data-id="' + i + '"]');
     var el = box && box.querySelector('[data-v="' + v + '"]');
     if (el) el.classList.add('sel');
   });
-  TF.forEach(function(q){
-    var v = S.answers.tf[q.id];
+  TF.forEach(function(q, i){
+    var v = S.answers.tf[i];
     if (v === undefined) return;
-    var box = document.querySelector('[data-kind="tf"][data-id="' + q.id + '"]');
+    var box = document.querySelector('[data-kind="tf"][data-id="' + i + '"]');
     var el = box && box.querySelector('[data-v="' + v + '"]');
     if (el) el.classList.add('sel');
   });
-  TASKS.forEach(function(t){
-    var arr = S.answers.tasks[t.id];
+  TASKS.forEach(function(t, i){
+    var arr = S.answers.tasks[i];
     if (!arr) return;
-    var box = document.querySelector('[data-kind="task"][data-id="' + t.id + '"]');
+    var box = document.querySelector('[data-kind="task"][data-id="' + i + '"]');
     Array.prototype.forEach.call(box.querySelectorAll('input'), function(inp, j){
       inp.checked = !!arr[j]; chkPaint(inp);
     });
-    paintTaskScore(t.id);
+    paintTaskScore(i);
   });
   refreshPalette();
 }
 
-function paintTaskScore(id){
-  var t = TASKS.find(function(x){ return x.id === id; });
-  var arr = S.answers.tasks[id] || [];
+function paintTaskScore(i){
+  var t = TASKS[i];
+  var arr = S.answers.tasks[i] || [];
   var n = arr.filter(Boolean).length;
-  $('sc-' + id).innerHTML = '本题暂得 <b>' + Math.round(t.pts * n / t.steps.length) + '</b> / ' + t.pts + ' 分（' + n + '/' + t.steps.length + ' 个验收点）';
+  $('sc-' + i).innerHTML = '本题暂得 <b>' + Math.round(t.pts * n / t.steps.length) + '</b> / ' + t.pts + ' 分（' + n + '/' + t.steps.length + ' 个验收点）';
 }
 
 function refreshPalette(){
@@ -541,9 +491,9 @@ function refreshPalette(){
   Array.prototype.forEach.call(chips, function(c){
     var key = c.getAttribute('data-go');
     var done = false;
-    if (key[0] === 'q'){ done = S.answers.mc[key.slice(1)] !== undefined; }
-    else if (key[0] === 't'){ done = S.answers.tf[key.slice(1)] !== undefined; }
-    else { var arr = S.answers.tasks[key.slice(1)]; done = arr && arr.some(Boolean); }
+    if (key[0] === 'm'){ done = S.answers.mc[key.slice(2)] !== undefined; }
+    else if (key[0] === 't'){ done = S.answers.tf[key.slice(2)] !== undefined; }
+    else { var arr = S.answers.tasks[key.slice(2)]; done = arr && arr.some(Boolean); }
     c.classList.toggle('done', done);
   });
 }
@@ -560,8 +510,6 @@ function updateTimer(){
 }
 
 /* ---------- 交卷与判分 ---------- */
-function askSubmit(){ doSubmit(false); }
-
 function doSubmit(auto){
   if (submitted) return;
   if (!auto && !confirm('确定交卷吗？交卷后将立即显示成绩与解析。')) return;
@@ -576,25 +524,25 @@ function doSubmit(auto){
 
 function grade(){
   var mcScore = 0, tfScore = 0, mcRight = 0, tfRight = 0;
-  var mcRev = MC.map(function(q){
-    var mine = S.answers.mc[q.id];
+  var mcRev = MC.map(function(q, i){
+    var mine = S.answers.mc[i];
     var ok = mine === q.ans;
-    if (ok){ mcScore += 4; mcRight++; }
-    return { no:q.id, q:q.q, mine:mine, ans:q.ans, ok:ok, exp:q.exp, pts:4 };
+    if (ok){ mcScore += 2; mcRight++; }
+    return { no:i, q:q.q, mine:mine, ans:q.ans, ok:ok, exp:q.exp };
   });
-  var tfRev = TF.map(function(q){
-    var mine = S.answers.tf[q.id];
+  var tfRev = TF.map(function(q, i){
+    var mine = S.answers.tf[i];
     var ok = mine === q.ans;
-    if (ok){ tfScore += 2; tfRight++; }
-    return { no:q.id, q:q.q, mine:mine, ans:q.ans, ok:ok, exp:q.exp, pts:2 };
+    if (ok){ tfScore += 3; tfRight++; }
+    return { no:i, q:q.q, mine:mine, ans:q.ans, ok:ok, exp:q.exp };
   });
   var taskScore = 0;
-  var taskRev = TASKS.map(function(t){
-    var arr = S.answers.tasks[t.id] || t.steps.map(function(){ return false; });
+  var taskRev = TASKS.map(function(t, i){
+    var arr = S.answers.tasks[i] || t.steps.map(function(){ return false; });
     var n = arr.filter(Boolean).length;
     var got = Math.round(t.pts * n / t.steps.length);
     taskScore += got;
-    return { id:t.id, title:t.title, got:got, pts:t.pts, n:n, total:t.steps.length, steps:t.steps, marks:arr, goal:t.goal };
+    return { idx:i, title:t.title, got:got, pts:t.pts, n:n, total:t.steps.length, steps:t.steps, marks:arr, goal:t.goal };
   });
   return { mc:mcScore, tf:tfScore, task:taskScore, total:mcScore + tfScore + taskScore,
     mcRight:mcRight, tfRight:tfRight, mcRev:mcRev, tfRev:tfRev, taskRev:taskRev,
@@ -607,37 +555,39 @@ function renderResult(r, auto){
   v.hidden = false;
 
   var html = '<div class="topbar"><div><div class="t1">' + (auto ? '时间到，已自动交卷' : '交卷成功') + '</div>' +
-    '<div class="t2">' + esc(S.name) + ' ｜ ' + esc(S.ticket) + ' ｜ ' + esc(r.at) + '</div></div>' +
-    '<div class="real-card"><button class="btn ghost" id="btn-retry" type="button">重新模拟（清空答卷）</button>' +
-    '<button class="btn" id="btn-print" type="button">打印/保存成绩单</button></div></div>';
+    '<div class="t2">' + esc(S.name) + ' ｜ 准考证号 ' + esc(S.ticket) + ' ｜ ' + esc(r.at) + ' ｜ ' + esc(EXAM.title) + '</div></div>' +
+    '<div class="real-card" style="display:flex; gap:10px; flex-wrap:wrap">' +
+    '<button class="btn ghost" id="btn-retry" type="button">重新模拟（清空答卷）</button>' +
+    '<button class="btn ghost" id="btn-print" type="button">打印/保存成绩单</button></div></div>';
 
   html += '<div class="card"><h2>总成绩</h2><div class="score-hero">' +
     '<div class="score-big">' + r.total + '<small> / 100</small></div>' +
     '<div class="parts">' +
-    '<div class="part"><b>' + r.mc + '<small>/40</small></b><span>单选（对 ' + r.mcRight + '/' + MC.length + '）</span></div>' +
-    '<div class="part"><b>' + r.tf + '<small>/10</small></b><span>判断（对 ' + r.tfRight + '/' + TF.length + '）</span></div>' +
-    '<div class="part"><b>' + r.task + '<small>/50</small></b><span>编程实操（自评）</span></div>' +
-    '</div></div></div>';
+    '<div class="part"><b>' + r.mc + '<small>/50</small></b><span>单选（对 ' + r.mcRight + '/' + MC.length + '）</span></div>' +
+    '<div class="part"><b>' + r.tf + '<small>/30</small></b><span>判断（对 ' + r.tfRight + '/' + TF.length + '）</span></div>' +
+    '<div class="part"><b>' + r.task + '<small>/20</small></b><span>编程实操（自评）</span></div>' +
+    '</div></div>' +
+    '<p class="muted" style="margin-top:10px">等级考试（一级）合格线约为 60 分；编程题由家长按验收点把关。</p></div>';
 
   html += '<div class="card"><h2>单选解析</h2>';
-  r.mcRev.forEach(function(it, i){
+  r.mcRev.forEach(function(it){
     html += '<div class="review-item"><span class="tag ' + (it.ok ? 'right' : 'wrong') + '">' + (it.ok ? '✓ 答对' : '× 答错') + '</span> ' +
-      '<b>第 ' + (i + 1) + ' 题</b>　' + esc(it.q) +
+      '<b>第 ' + (it.no + 1) + ' 题</b>　' + esc(it.q) +
       '<div class="your-ans">你的答案：<b>' + (it.mine === undefined ? '未作答' : 'ABCD'[it.mine]) + '</b>　正确答案：<b style="color:var(--ok)">' + 'ABCD'[it.ans] + '</b></div>' +
       '<div class="exp">' + esc(it.exp) + '</div></div>';
   });
   html += '</div>';
 
   html += '<div class="card"><h2>判断解析</h2>';
-  r.tfRev.forEach(function(it, i){
+  r.tfRev.forEach(function(it){
     html += '<div class="review-item"><span class="tag ' + (it.ok ? 'right' : 'wrong') + '">' + (it.ok ? '✓ 答对' : '× 答错') + '</span> ' +
-      '<b>判断 ' + (i + 1) + '</b>　' + esc(it.q) +
+      '<b>判断 ' + (it.no + 1) + '</b>　' + esc(it.q) +
       '<div class="your-ans">你的答案：<b>' + (it.mine === undefined ? '未作答' : (it.mine ? '正确 √' : '错误 ×')) + '</b>　正确答案：<b style="color:var(--ok)">' + (it.ans ? '正确 √' : '错误 ×') + '</b></div>' +
       '<div class="exp">' + esc(it.exp) + '</div></div>';
   });
   html += '</div>';
 
-  html += '<div class="card"><h2>编程实操自评结果</h2>';
+  html += '<div class="card"><h2>编程题自评结果</h2>';
   r.taskRev.forEach(function(t){
     var ratio = t.got / t.pts;
     var cls = ratio >= 1 ? 'right' : ratio > 0 ? 'half' : 'wrong';
@@ -665,8 +615,8 @@ function renderResult(r, auto){
 }
 
 /* ---------- 事件 ---------- */
-$('btn-submit').addEventListener('click', askSubmit);
-$('btn-submit-top').addEventListener('click', askSubmit);
+$('btn-submit').addEventListener('click', function(){ doSubmit(false); });
+$('btn-submit-top').addEventListener('click', function(){ doSubmit(false); });
 
 window.addEventListener('beforeunload', function(e){
   if (!$('view-exam').hidden && !submitted){
