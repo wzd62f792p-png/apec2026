@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scratch 一级模拟考试 · 青少年软件编程等级考试测试卷</title>
+<title>全国青少年软件编程（Scratch）等级考试试卷（一级）</title>
 <style>
   :root{
     --blue:#1d4ed8; --blue-d:#0f3a8c; --blue-l:#e8effd;
@@ -133,15 +133,17 @@
     opacity:0; pointer-events:none; transition:opacity .25s; z-index:99;
   }
   .toast.show{opacity:.92}
+
   /* ---------- 在线练习 ---------- */
-  .editor-box{border:1.5px solid var(--line); border-radius:12px; overflow:hidden; background:#0e1116}
-  .editor-box iframe{width:100%; height:600px; border:0; display:block}
-  @media (max-width:640px){ .editor-box iframe{height:460px} }
-  .editor-note{
-    display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center;
-    padding:10px 14px; background:var(--blue-l); font-size:14px; color:var(--blue-d);
-    border-radius:0 0 12px 12px;
+  .editor-box{
+    border:1.5px solid var(--line); border-radius:12px; overflow:hidden;
+    background:linear-gradient(135deg, #101828, #1b2a4a);
+    color:#fff; text-align:center; padding:30px 20px;
   }
+  .editor-box p.big{font-size:17px; font-weight:700; margin-bottom:6px}
+  .editor-box p.sub{font-size:14px; color:#b9c8e3; margin-bottom:18px}
+  .editor-box .btn{font-size:17px; padding:13px 30px}
+  .editor-box .tip{font-size:13px; color:#8fa3c8; margin-top:16px}
   .plat{display:flex; gap:10px; flex-wrap:wrap}
 
   /* ---------- 积木排序闯关 ---------- */
@@ -182,8 +184,8 @@
 <!-- ================= 登录 / 考试须知 ================= -->
 <section id="view-login" class="wrap">
   <div class="topbar">
-    <div class="t1">青少年软件编程（Scratch）等级考试 · 一级</div>
-    <div class="t2">模拟测试卷 ｜ 考试时间 60 分钟 ｜ 满分 100 分 ｜ 单选 25 题 × 2 分 · 判断 10 题 × 3 分 · 编程 2 题 × 10 分</div>
+    <div class="t1">全国青少年软件编程（Scratch）等级考试试卷（一级）</div>
+    <div class="t2">考试时间 60 分钟 ｜ 满分 100 分 ｜ 题数 37 ｜ 单选 25 题 × 2 分 · 判断 10 题 × 2 分 · 编程 2 题 × 15 分</div>
   </div>
 
   <div class="login-grid">
@@ -194,22 +196,21 @@
         <input id="in-name" maxlength="12" placeholder="请输入姓名" autocomplete="off">
       </div>
       <div class="field">
-        <label for="in-ticket">准考证号（可自定，仅用于模拟）</label>
+        <label for="in-ticket">准考证号</label>
         <input id="in-ticket" maxlength="8" inputmode="numeric" placeholder="8 位数字" autocomplete="off">
         <div class="err" id="ticket-err">准考证号应为 8 位数字</div>
       </div>
       <button class="btn ok" id="btn-login" type="button" style="width:100%; justify-content:center; padding:13px">
         登录并阅读须知
       </button>
-      <p class="muted" style="margin-top:10px">本页为<b>家庭模拟考试</b>，不与正式考试系统相连；答案保存在本设备，可反复重考。</p>
     </div>
 
     <div class="card notice">
       <h2>考生须知</h2>
       <ol>
         <li>考试时长 <b>60 分钟</b>，点击「开始考试」后自动计时。</li>
-        <li>试卷共三部分：<b>单项选择 25 题</b>（每题 2 分，共 50 分）、<b>判断 10 题</b>（每题 3 分，共 30 分）、<b>编程题 2 题</b>（每题 10 分，共 20 分）。</li>
-        <li>编程题请在<b>本机 Scratch 编辑器</b>中完成，完成后回到页面勾选「验收点」自评得分。</li>
+        <li>试卷共三部分：<b>单项选择 25 题</b>（每题 2 分，共 50 分）、<b>判断 10 题</b>（每题 2 分，共 20 分）、<b>编程题 2 题</b>（每题 15 分，共 30 分）。</li>
+        <li>编程题请在<b>本机 Scratch 编辑器</b>中完成，完成后回到页面勾选「验收点」计分。</li>
         <li>答案<b>自动保存</b>；意外关闭页面后重新登录可继续作答，计时不清零。</li>
         <li>时间用完将<b>自动交卷</b>；也可点击「交卷」提前结束。</li>
         <li>交卷后立即出分，附<b>逐题解析</b>，错题要弄懂再重考。</li>
@@ -219,14 +220,11 @@
 
   <div class="card">
     <h2>在线编程练习（Scratch 编辑器，可直接动手写）</h2>
-    <p class="muted" style="margin-bottom:10px">下面是内嵌的 Scratch 全功能编辑器（TurboWarp 版，与正式考试编辑器操作一致），点积木就能编程；做完编程题后用它演示给家长看。</p>
     <div class="editor-box">
-      <iframe id="tw-editor" src="https://turbowarp.org/editor?locale=zh-cn" loading="lazy"
-        allow="fullscreen; autocorrect" allowfullscreen title="Scratch 在线编辑器"></iframe>
-    </div>
-    <div class="editor-note">
-      <span>右上角菜单 → 文件 → 保存到电脑，可把作品存成 .sb3；加载慢时可点右边按钮单独打开。</span>
-      <a class="btn small" href="https://turbowarp.org/editor?locale=zh-cn" target="_blank" rel="noopener">新标签页全屏打开</a>
+      <p class="big">Scratch 全功能在线编辑器</p>
+      <p class="sub">TurboWarp 版 · 中文界面 · 与等级考试编辑器操作一致 · 免安装</p>
+      <a class="btn ok" href="https://turbowarp.org/editor?locale=zh-cn" target="_blank" rel="noopener">打开 Scratch 编辑器</a>
+      <p class="tip">右上角菜单 → 文件 → 保存到电脑，可把作品存成 .sb3 文件</p>
     </div>
     <div class="plat" style="margin-top:12px">
       <span class="muted" style="align-self:center">更多练习平台：</span>
@@ -261,7 +259,7 @@
 <section id="view-exam" hidden>
   <div class="exambar">
     <div class="wrap">
-      <div class="who"><b id="exam-name">—</b> ｜ 准考证号 <b id="exam-ticket">—</b> ｜ 一级模拟卷</div>
+      <div class="who"><b id="exam-name">—</b> ｜ 准考证号 <b id="exam-ticket">—</b> ｜ 试卷（一级）</div>
       <div class="palette" id="palette"></div>
       <div style="display:flex; gap:10px; align-items:center">
         <div class="timer" id="timer">
@@ -289,99 +287,99 @@
 /* ================= 考试配置 ================= */
 var EXAM = {
   student: '谷彦泽',
-  title: '青少年软件编程（Scratch）等级考试（一级）· 模拟测试卷',
+  title: '全国青少年软件编程（Scratch）等级考试试卷（一级）',
   durationMin: 60,
-  storeKey: 'scratchExamMock.v2'
+  storeKey: 'scratchExamMock.v3'
 };
 
 /* ---------- 一、单项选择（25 题 × 2 分 = 50 分） ---------- */
 var MC = [
-  { q:'Scratch 是一款什么类型的软件？', opts:['图形化编程软件','视频播放器','办公表格软件','网页浏览器'], ans:0,
-    exp:'Scratch 用「搭积木」的方式编程，不需要敲代码，是图形化编程软件。' },
-  { q:'打开 Scratch 3.0 后，舞台上默认的角色是？', opts:['小猫','小狗','太空人','没有角色'], ans:0,
-    exp:'默认角色就是那只橙色的小猫（Cat）。' },
-  { q:'想添加一个新角色，应点击哪个按钮？', opts:['角色区的「选择一个角色」','背景区的「选择一个背景」','绿旗','停止按钮'], ans:0,
-    exp:'角色在右下角角色区添加；背景在舞台右下方背景区添加，别混了。' },
-  { q:'Scratch 默认的积木分类一共有几类？', opts:['9 类','6 类','12 类','15 类'], ans:0,
-    exp:'九大类：运动、外观、声音、事件、控制、侦测、运算、变量、自制积木。' },
-  { q:'「移动 10 步」积木属于哪个分类？', opts:['运动','外观','事件','运算'], ans:0,
-    exp:'移动、旋转、坐标类积木都在深蓝色的「运动」分类里。' },
-  { q:'「说“你好！”」积木属于哪个分类？', opts:['外观','运动','声音','控制'], ans:0,
-    exp:'说话、思考、切换造型、隐藏显示都在紫色的「外观」分类。' },
-  { q:'让程序开始运行，应点击舞台上的？', opts:['绿旗','红色按钮','黑旗','空格键'], ans:0,
-    exp:'点击绿旗开始；红色八边形是停止。' },
-  { q:'要停止正在运行的程序，应点击？', opts:['绿旗','红色八边形按钮','关闭窗口','保存按钮'], ans:1,
-    exp:'停止按钮是舞台上方绿旗旁边的红色八边形。' },
-  { q:'方向 90° 表示角色面向哪里？', opts:['右','上','左','下'], ans:0,
-    exp:'0°向上、90°向右、180°向下、−90°向左。' },
-  { q:'要让角色从舞台上看不见，应使用哪块积木？', opts:['隐藏','显示','移动 10 步','等待 1 秒'], ans:0,
-    exp:'「隐藏」让角色消失，「显示」让角色重新出现，都属于外观分类。' },
-  { q:'「播放声音 喵」积木属于哪个分类？', opts:['声音','外观','事件','侦测'], ans:0,
-    exp:'粉红色的「声音」分类，可以播放、停止声音，还能录制。' },
-  { q:'「当绿旗被点击」属于哪个分类？', opts:['事件','控制','侦测','运动'], ans:0,
-    exp:'它是黄色「事件」分类的帽子积木，程序一般由它开始。' },
-  { q:'「等待 2 秒」积木属于哪个分类？', opts:['控制','事件','外观','运算'], ans:0,
-    exp:'「控制」分类是橙色的，有等待、重复执行、如果…那么等积木。' },
-  { q:'舞台正中央的坐标是？', opts:['(0, 0)','(100, 100)','(240, 180)','(0, 180)'], ans:0,
-    exp:'舞台中心是原点 (0, 0)，x 向右为正、y 向上为正。' },
-  { q:'舞台右上角的位置，坐标有什么特点？', opts:['x 是正数，y 是正数','x 是负数，y 是负数','x 是正数，y 是负数','x 是负数，y 是正数'], ans:0,
-    exp:'右半边 x 为正，上半边 y 为正，所以右上角两个都是正数。' },
-  { q:'新建角色的默认大小是？', opts:['100','50','200','10'], ans:0,
-    exp:'默认 100 表示原大小；数字越小角色越小，越大角色越大。' },
-  { q:'想给舞台换一个背景，应点击？', opts:['「选择一个背景」按钮','「选择一个角色」按钮','绿旗','停止按钮'], ans:0,
-    exp:'背景在舞台右下角的背景区添加。' },
-  { q:'「重复执行 10 次」积木属于哪个分类？', opts:['控制','运算','事件','变量'], ans:0,
-    exp:'所有重复类积木都在橙色「控制」分类里。' },
-  { q:'哪块积木可以让角色回到舞台正中央？', opts:['移到 x:0 y:0','移动 10 步','面向 90 方向','等待 1 秒'], ans:0,
-    exp:'中心坐标是 (0, 0)，所以用「移到 x:0 y:0」。' },
-  { q:'删除一个角色的正确方法是？', opts:['选中角色后点右上角的小 ×','点击绿旗','按 F5 键','Scratch 里不能删除角色'], ans:0,
-    exp:'角色缩略图右上角的小 × 就是删除按钮。' },
-  { q:'「说“你好！”」和「思考“你好！”」的区别是？', opts:['一个是对话气泡，一个是思考云','完全一样','思考不显示文字','说不显示文字'], ans:0,
-    exp:'说 = 对话气泡；思考 = 云朵形的思考框，都能显示文字。' },
-  { q:'「碰到 鼠标指针？」积木属于哪个分类？', opts:['侦测','外观','声音','控制'], ans:0,
-    exp:'浅蓝色的「侦测」分类，用来判断碰撞、按键、距离等。' },
-  { q:'想让按下空格键时角色做动作，脚本应从哪块积木开始？', opts:['当按下 空格','当绿旗被点击','重复执行','等待 1 秒'], ans:0,
-    exp:'按键触发用「当按下 某键」，它属于事件分类。' },
-  { q:'保存作品，应该在菜单里点击？', opts:['文件 → 保存到电脑','编辑 → 清空舞台','停止按钮','绿旗'], ans:0,
-    exp:'Scratch 作品文件一般保存为 .sb3 文件。' },
-  { q:'一个角色可以编写几个脚本？', opts:['可以有多个脚本','只能一个','只能两个','不能编写脚本'], ans:0,
-    exp:'一个角色可以同时拥有很多段脚本，它们可以同时运行。' }
+  { q:'下面对中心点的描述正确的是？', opts:['中心点不能设置在角色之外','角色围绕中心点旋转','不能修改角色的中心点位置','其他三项都正确'], ans:1,
+    exp:'角色旋转时都是围绕中心点转的；中心点可以在造型编辑器里拖动修改，也可以设在角色图形之外。' },
+  { q:'在对背景进行修改编辑的过程中，去除我们不需要的部分，需要使用绘图中的（）工具。', opts:['画笔','选择工具','橡皮擦','填充工具'], ans:2,
+    exp:'擦除画面中不需要的部分，用橡皮擦工具。' },
+  { q:'点击绿旗后，想让小猫转向左边（面向左），应使用哪块积木？', opts:['面向 90 方向','面向 0 方向','面向 -90 方向','右转 90 度'], ans:2,
+    exp:'方向规定：0 向上、90 向右、-90 向左。右转 90 度只会顺时针转，不一定面向左。' },
+  { q:'下列关于舞台的描述，不正确的是？', opts:['舞台可以有很多背景','舞台背景可以切换','舞台中背景可以移动','可以把角色当背景来用'], ans:2,
+    exp:'背景不能像角色那样移动；舞台可以有很多背景、能切换，也能把角色当背景用。' },
+  { q:'小猫面向右（90°），执行「右转 180 度」后，它面向哪里？', opts:['面向上方','面向左边','面向下方','仍面向右边'], ans:1,
+    exp:'右转 180 度正好转半圈，从面向右变成面向左。' },
+  { q:'执行下列哪个积木指令后，舞台上的小猫角色就会隐藏？', opts:['显示','隐藏','切换造型','说「你好！」'], ans:1,
+    exp:'「隐藏」让角色从舞台上看不见；「显示」让它重新出现。' },
+  { q:'舞台上有 3 个背景，当前是背景 1。点击绿旗后执行一次「下一个背景」，然后小猫说（舞台的背景编号），小猫说的内容是？', opts:['1','2','3','1、2、3 都可能'], ans:1,
+    exp:'从背景 1 执行一次「下一个背景」后变成背景 2，所以说的编号是 2。' },
+  { q:'我们对角色 A 进行编程，完成了正确的代码后，执行发现 A 没有任何反应，而角色 B 却按照 A 的代码执行起来，最可能的原因是？', opts:['Scratch 软件出了差错','将角色 A 的代码写给了角色 B','计算机出现了运行问题','其他三项都不是'], ans:1,
+    exp:'代码写错角色了：写代码前必须先在角色区选中正确的角色。' },
+  { q:'小猫要从 A 点出发，依次经过 B、C 点最后到达 D 点，下面哪种做法正确？', opts:['只用一块「移到 x: y:」直接跳到 D 点','依次使用三块「在 1 秒内滑行到 x: y:」（分别滑到 B、C、D）','只用一块「面向 D 点」积木','以上做法都不行'], ans:1,
+    exp:'「滑行」会在一段时间内平滑移动，能依次走过每个点；「移到」是瞬间跳过去，看不出路径。' },
+  { q:'找规律：1、1、2、3、5、8、（），问号处应该填？', opts:['11','13','15','20'], ans:1,
+    exp:'从第三个数起，每个数都是前两个数之和：5 + 8 = 13。' },
+  { q:'在 Scratch 中，以下哪个区域可以展示编程效果？', opts:['代码区','舞台区','角色区','积木区'], ans:1,
+    exp:'舞台区用来播放、展示程序的运行效果。' },
+  { q:'将项目的背景音乐设置为声音库里的「Birthday」并重复播放，为了避免运行时产生噪音，应该使用（）', opts:['播放声音 Birthday 等待播完','停止所有声音','将音量增加 10','将音量设定为 100'], ans:1,
+    exp:'在重复播放前先执行「停止所有声音」，防止上一遍还没放完、下一遍又叠上来产生噪音。' },
+  { q:'角色一共有 4 个造型，当前显示的是造型 4。执行一次「下一个造型」后，角色显示的是造型几？', opts:['1','2','3','4'], ans:0,
+    exp:'「下一个造型」到最后一个造型后会绕回第一个：4 的下一个是 1。' },
+  { q:'将一个玩具放在蓝、红、黄三个盒子里，下面只有一条说法正确，那么玩具放在哪个盒子里？蓝色盒子：玩具在这个盒子里。红色盒子：玩具不在这个盒子里。黄色盒子：玩具不在蓝色盒子里。', opts:['蓝色盒子','黄色盒子','红色盒子','条件不充分，推导不出来'], ans:2,
+    exp:'逐个假设：在蓝盒时「蓝、红」两句都真，矛盾；在黄盒时「红、黄」两句都真；只有在红盒时，只有「黄」那一句为真，符合条件。' },
+  { q:'每次完成一个 Scratch 作品，为了以后继续使用或者编辑，要求我们务必完成（）操作。', opts:['保存文件','删除文件','新建文件','复制文件'], ans:0,
+    exp:'只有保存成 .sb3 文件，下次才能打开继续编辑。' },
+  { q:'你去旅行，带了三件上衣，三件裤子，请问有几种搭配穿法呢？', opts:['3','6','9','其他三项都不是'], ans:2,
+    exp:'每件上衣都能配 3 条裤子：3 × 3 = 9 种。' },
+  { q:'小猫在舞台左下角，苹果在舞台右上角。要让小猫平滑地移动到苹果那里，应使用哪块积木？', opts:['在 2 秒内滑行到 x: 苹果的x y: 苹果的y','移到 x: 苹果的x y: 苹果的y','面向 90 方向','移动 10 步'], ans:0,
+    exp:'「滑行」会在一段时间内平滑地移动过去；「移到」是瞬间出现，看不到移动过程。' },
+  { q:'在 Scratch 中，想从本地电脑上传一张图片作为舞台背景，应在背景区点击哪个按钮？', opts:['上传背景','选择一个背景','绘制新背景','画笔'], ans:0,
+    exp:'「上传背景」按钮可以从本地电脑选择图片文件。' },
+  { q:'判断下面哪句话是假的？', opts:['小猫有一个黑色的鼻子','熊有三只耳朵','小猫看起来很高兴','蝴蝶有两条触须'], ans:1,
+    exp:'熊只有两只耳朵，「三只耳朵」是假的；其余都是对的。' },
+  { q:'角色当前音量是 100。先执行「将音量设定为 60」，再执行「将音量增加 -40」，此时舞台上播放的音量是？', opts:['80','60','30','20'], ans:3,
+    exp:'100 先设为 60，再加 -40：60 − 40 = 20。' },
+  { q:'角色有多个造型，当前显示造型 1。下列哪种做法能让它最终显示造型 3？', opts:['执行一次「下一个造型」','执行「将造型切换为 costume3」','执行「将大小设定为 3」','执行「下一个背景」'], ans:1,
+    exp:'指定切换到某个造型，用「将造型切换为 …」；一次「下一个造型」只会到造型 2。' },
+  { q:'下列哪种做法能让默认角色（面向右）向右移动 20 步？', opts:['移动 20 步','移动 -20 步','移到 x:20 y:0','其他三项都不是'], ans:0,
+    exp:'角色面向右，「移动 20 步」就是向右前进 20 步；-20 是向反方向退。' },
+  { q:'小猫过生日，要先把《生日快乐歌》完整播放完，之后小猫再喵一声。下面哪种程序顺序是正确的？', opts:['用「播放声音 生日快乐 等待播完」，播完后接「播放声音 喵」','用「播放声音 生日快乐」（不等待），紧接着「播放声音 喵」','只播放「喵」一声','先喵一声，再播生日歌'], ans:0,
+    exp:'「等待播完」会让歌曲完整放完，才继续执行后面的积木；不等待的话两首歌会同时响。' },
+  { q:'要实现小猫一面唱歌、一面走路，正确的做法是？', opts:['把「播放声音」和「移动 10 步」连在同一个脚本里','用两个脚本：一个「当绿旗被点击 → 播放声音」，另一个「当绿旗被点击 → 重复执行 { 移动 10 步 }」，两段同时运行','先让小猫走完路，再开始唱歌','Scratch 不能同时做两件事'], ans:1,
+    exp:'多段脚本可以同时运行：一段管唱歌、一段管走路，互不耽误。' },
+  { q:'上传了三个背景，按下空格键小猫说出背景编号，舞台换成随机背景。每次按下空格键，小猫说的内容是？', opts:['1','2','3','1、2、3 都可能'], ans:3,
+    exp:'背景是随机切换的，每次的背景编号可能是 1、2 或 3。' }
 ];
 
-/* ---------- 二、判断（10 题 × 3 分 = 30 分，ans: true/false） ---------- */
+/* ---------- 二、判断（10 题 × 2 分 = 20 分，ans: true/false） ---------- */
 var TF = [
-  { q:'Scratch 中可以添加多个角色，每个角色都可以有自己的脚本。', ans:true,
-    exp:'角色区可以放很多角色，每个角色单独编写脚本。' },
-  { q:'点击绿旗后，「当绿旗被点击」下面的积木就会开始执行。', ans:true,
-    exp:'绿旗是启动开关，点击后帽子积木下面的脚本才开始运行。' },
-  { q:'「移动 10 步」会让角色向上跳 10 个坐标。', ans:false,
-    exp:'「移动 10 步」是沿角色当前面向的方向前进，不是向上跳。' },
-  { q:'「等待 1 秒」积木在「事件」分类里。', ans:false,
-    exp:'它在「控制」分类里，事件分类放的是「当…」开头的触发积木。' },
-  { q:'舞台背景可以像角色一样执行「移动 10 步」。', ans:false,
-    exp:'舞台不能移动；舞台主要用外观类积木切换背景。' },
-  { q:'角色隐藏后，它的脚本就停止运行了。', ans:false,
-    exp:'隐藏只是看不见，脚本还在照常运行。' },
-  { q:'一个角色只能添加一个脚本。', ans:false,
-    exp:'一个角色可以有多段脚本，互不影响。' },
-  { q:'用「下一个造型」或「切换造型」可以让角色看起来动起来。', ans:true,
-    exp:'快速切换造型就是 Scratch 里最常见的走路动画做法。' },
-  { q:'Scratch 作品保存后，文件的扩展名一般是 .sb3。', ans:true,
-    exp:'Scratch 3.0 的作品文件后缀是 .sb3。' },
-  { q:'「当按下 空格」属于「控制」分类。', ans:false,
-    exp:'它属于「事件」分类，控制分类里没有「当…」开头的积木。' }
+  { q:'执行「重复执行 4 次 { 右转 45 度 }」后，可以看到小猫在舞台上右转了 4 次正好一圈。', ans:false,
+    exp:'45° × 4 = 180°，只转了半圈；转一圈一圈需要 4 次右转 90 度。' },
+  { q:'上传声音，只支持 mp3 格式。', ans:false,
+    exp:'除了 mp3，还支持 wav 等格式。' },
+  { q:'在 Scratch 3.0 中，「面向 0 方向」指角色面向右侧。', ans:false,
+    exp:'0 方向是面向上方；90 才是面向右侧。' },
+  { q:'「停止所有声音」积木在「外观」模块。', ans:false,
+    exp:'它在「声音」模块。' },
+  { q:'大蛋糕 120 元一个，中蛋糕 90 元一个，小蛋糕 50 元一个。如果小猫的零花钱大于等于 50 并且小于 90，小猫只能买小蛋糕。', ans:true,
+    exp:'零花钱在 50～89 之间：买不起 90 元的中蛋糕和 120 元的大蛋糕，只能买 50 元的小蛋糕。' },
+  { q:'在造型绘制中，要「组合」，必须先选择两个或以上的图形。', ans:true,
+    exp:'组合至少需要两个图形才能进行。' },
+  { q:'「移动 10 步」是从当前位置向当前所指方向移动 10 步；写成「移动 -10 步」，就是向当前方向的反方向移动 10 步。', ans:true,
+    exp:'负数步数表示沿反方向移动。' },
+  { q:'只使用「下一个造型」这一块积木，造型既可以随机切换，也可以指定切换到某一个造型。', ans:false,
+    exp:'「下一个造型」只能按顺序切换；随机或指定切换要用别的积木（如「将造型切换为 …」）。' },
+  { q:'一个角色可以有多个造型，但是舞台只能有一个背景。', ans:false,
+    exp:'角色可有多个造型，舞台同样可以有多个背景并能切换。' },
+  { q:'「播放声音 喵 等待播完」积木在「事件」模块。', ans:false,
+    exp:'它在「声音」模块。' }
 ];
 
-/* ---------- 三、编程题（2 题 × 10 分 = 20 分，勾选验收点按比例得分） ---------- */
+/* ---------- 三、编程题（2 题 × 15 分 = 30 分，勾选验收点按比例得分） ---------- */
 var TASKS = [
-  { pts:10, per:2, title:'编程题 1 · 小猫自我介绍（10 分）',
-    goal:'点击绿旗后，小猫说「大家好，我是小猫！」2 秒，然后向前移动 100 步。',
-    hint:'结构：当绿旗被点击 → 说「大家好，我是小猫！」2 秒 → 移动 100 步。说话积木要选带「2 秒」的那一块。',
-    steps:['用「当绿旗被点击」作为开头','使用了「说…2 秒」积木，内容正确','使用了「移动 100 步」','积木按顺序连接，顺序正确','点击绿旗能完整演示，无报错'] },
-  { pts:10, per:2, title:'编程题 2 · 小猫走向终点（10 分）',
-    goal:'点击绿旗后，小猫用「重复执行 10 次」每次移动 10 步走到右边，走完后说「我到终点啦！」，并切换到下一个造型。',
-    hint:'结构：当绿旗被点击 → 移到 x:-180 y:0（回到起点）→ 重复执行 10 次 { 移动 10 步 } → 说「我到终点啦！」→ 下一个造型。',
-    steps:['使用「重复执行 10 次」循环移动','每次循环移动 10 步','走完后说「我到终点啦！」','有切换造型（下一个造型）','点击绿旗能完整演示，小猫停在右侧'] }
+  { pts:15, per:3, title:'编程题 36 · 小狗散步（15 分）',
+    goal:'选择背景 Playground；添加角色小狗 Dog2 和蝴蝶 Butterfly2。小狗初始位置 (-151, -106)，蝴蝶初始位置 (101, 165)；小狗只保留 dog2-a、dog2-b 两个造型，并把 dog2-b 编辑成尾巴朝下；蝴蝶面向左。点击绿旗后，小狗摇着尾巴从左向右走，蝴蝶从右向左扇动翅膀飞行。',
+    hint:'初始位置用「移到 x: y:」；走路 = 重复执行 { 下一个造型 → 移动 10 步 }；飞行同理，方向相反。',
+    steps:['背景 Playground 与角色 Dog2、Butterfly2 添加正确','小狗 (-151,-106)、蝴蝶 (101,165) 初始位置设置正确','小狗只保留两个造型，且 dog2-b 编辑为尾巴朝下','蝴蝶面向左','点击绿旗后：小狗从左向右走路（切换造型），蝴蝶从右向左飞行（切换造型）'] },
+  { pts:15, per:3, title:'编程题 37 · 运动起来（15 分）',
+    goal:'选择背景 Bedroom2、Basketball2；保留小猫角色；再绘制一个圆圈角色作表盘、一个表针角色。初始背景为 Bedroom2，小猫初始位置 (-160, -117)，表针指向正上方。点击绿旗：小猫说「我要去运动了！」1 秒 → 背景切换为 Basketball2，小猫切换造型向右走几步 → 说「该回家了！」1 秒 → 背景切换回 Bedroom2。同时表针每隔 0.5 秒右转 15 度，一共转 10 次。',
+    hint:'表针脚本和小猫脚本用两段「当绿旗被点击」同时运行；表针用「重复执行 10 次 { 右转 15 度 → 等待 0.5 秒 }」。',
+    steps:['两个背景添加正确，并绘制表盘、表针两个角色','初始背景 Bedroom2、小猫 (-160,-117)、表针指向正上方','流程完整：说「我要去运动了！」1 秒 → 切背景 Basketball2 → 换造型向右走几步 → 说「该回家了！」1 秒 → 切回 Bedroom2','表针每隔 0.5 秒右转 15 度，共转 10 次','点击绿旗后全流程能完整演示'] }
 ];
 
 /* ================= 状态管理 ================= */
@@ -460,9 +458,9 @@ function buildPalette(){
 
 function buildPaper(){
   var html = '<div class="card"><h2>' + esc(EXAM.title) + '</h2>' +
-    '<p class="muted">单项选择 25 题（50 分）+ 判断 10 题（30 分）+ 编程 2 题（20 分），满分 100 分，时长 60 分钟。答案自动保存。</p></div>';
+    '<p class="muted">分数：100 分 ｜ 题数：37 ｜ 单项选择 25 题（50 分）+ 判断 10 题（20 分）+ 编程 2 题（30 分）｜ 考试时间 60 分钟。答案自动保存。</p></div>';
 
-  html += '<div class="card"><h2>一、单项选择（每题 2 分，共 50 分）</h2>';
+  html += '<div class="card"><h2>一、单项选择（共 25 题，每题 2 分，共 50 分）</h2>';
   MC.forEach(function(q, i){
     html += '<div class="qcard" id="mq' + i + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
       '<span class="qtext">' + esc(q.q) + '</span><span class="qpts">2 分</span></div><div class="opts two" data-kind="mc" data-id="' + i + '">';
@@ -473,17 +471,17 @@ function buildPaper(){
   });
   html += '</div>';
 
-  html += '<div class="card"><h2>二、判断（每题 3 分，共 30 分）</h2>';
+  html += '<div class="card"><h2>二、判断题（共 10 题，每题 2 分，共 20 分）</h2>';
   TF.forEach(function(q, i){
     html += '<div class="qcard" id="tq' + i + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
-      '<span class="qtext">' + esc(q.q) + '</span><span class="qpts">3 分</span></div>' +
+      '<span class="qtext">' + esc(q.q) + '</span><span class="qpts">2 分</span></div>' +
       '<div class="tfrow" data-kind="tf" data-id="' + i + '">' +
       '<div class="opt on" data-v="true">正确 √</div><div class="opt off" data-v="false">错误 ×</div></div></div>';
   });
   html += '</div>';
 
-  html += '<div class="card"><h2>三、编程题（每题 10 分，共 20 分，按验收点自评）</h2>' +
-    '<p class="muted">请在本机 Scratch 中完成，每完成一个验收点就勾选一项；得分 = 勾选比例 × 题目分值。</p>';
+  html += '<div class="card"><h2>三、编程题（共 2 题，每题 15 分，共 30 分，按验收点计分）</h2>' +
+    '<p class="muted">请在本机 Scratch 编辑器中完成（可用上方「打开 Scratch 编辑器」），每完成一个验收点就勾选一项；得分 = 勾选比例 × 题目分值。</p>';
   TASKS.forEach(function(t, i){
     html += '<div class="qcard task" id="pq' + i + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
       '<span class="qtext">' + esc(t.title) + '</span><span class="qpts">' + t.pts + ' 分</span></div>' +
@@ -608,7 +606,7 @@ function grade(){
   var tfRev = TF.map(function(q, i){
     var mine = S.answers.tf[i];
     var ok = mine === q.ans;
-    if (ok){ tfScore += 3; tfRight++; }
+    if (ok){ tfScore += 2; tfRight++; }
     return { no:i, q:q.q, mine:mine, ans:q.ans, ok:ok, exp:q.exp };
   });
   var taskScore = 0;
@@ -632,15 +630,15 @@ function renderResult(r, auto){
   var html = '<div class="topbar"><div><div class="t1">' + (auto ? '时间到，已自动交卷' : '交卷成功') + '</div>' +
     '<div class="t2">' + esc(S.name) + ' ｜ 准考证号 ' + esc(S.ticket) + ' ｜ ' + esc(r.at) + ' ｜ ' + esc(EXAM.title) + '</div></div>' +
     '<div class="real-card" style="display:flex; gap:10px; flex-wrap:wrap">' +
-    '<button class="btn ghost" id="btn-retry" type="button">重新模拟（清空答卷）</button>' +
+    '<button class="btn ghost" id="btn-retry" type="button">重新考试（清空答卷）</button>' +
     '<button class="btn ghost" id="btn-print" type="button">打印/保存成绩单</button></div></div>';
 
   html += '<div class="card"><h2>总成绩</h2><div class="score-hero">' +
     '<div class="score-big">' + r.total + '<small> / 100</small></div>' +
     '<div class="parts">' +
     '<div class="part"><b>' + r.mc + '<small>/50</small></b><span>单选（对 ' + r.mcRight + '/' + MC.length + '）</span></div>' +
-    '<div class="part"><b>' + r.tf + '<small>/30</small></b><span>判断（对 ' + r.tfRight + '/' + TF.length + '）</span></div>' +
-    '<div class="part"><b>' + r.task + '<small>/20</small></b><span>编程实操（自评）</span></div>' +
+    '<div class="part"><b>' + r.tf + '<small>/20</small></b><span>判断（对 ' + r.tfRight + '/' + TF.length + '）</span></div>' +
+    '<div class="part"><b>' + r.task + '<small>/30</small></b><span>编程实操（按验收点）</span></div>' +
     '</div></div>' +
     '<p class="muted" style="margin-top:10px">等级考试（一级）合格线约为 60 分；编程题由家长按验收点把关。</p></div>';
 
@@ -662,7 +660,7 @@ function renderResult(r, auto){
   });
   html += '</div>';
 
-  html += '<div class="card"><h2>编程题自评结果</h2>';
+  html += '<div class="card"><h2>编程题结果</h2>';
   r.taskRev.forEach(function(t){
     var ratio = t.got / t.pts;
     var cls = ratio >= 1 ? 'right' : ratio > 0 ? 'half' : 'wrong';
@@ -676,7 +674,7 @@ function renderResult(r, auto){
   v.innerHTML = html;
 
   $('btn-retry').addEventListener('click', function(){
-    if (!confirm('清空本次答卷并重新开始模拟？')) return;
+    if (!confirm('清空本次答卷并重新开始考试？')) return;
     S = { name:S.name, ticket:S.ticket, startedAt:null, answers:{ mc:{}, tf:{}, tasks:{} }, submitted:false };
     saveState(S);
     submitted = false;
