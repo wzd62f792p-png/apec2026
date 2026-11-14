@@ -89,6 +89,7 @@
   .q10strip{display:flex; gap:10px; flex-wrap:wrap; align-items:center; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:#fff; width:max-content}
   .shape{width:42px; height:42px; display:block}
   .qmark{width:42px; height:42px; background:#1c1c1e; color:#fff; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800}
+  .sbjoin{color:var(--mut); font-weight:700; font-size:15px; margin:2px 0}
   .qimg{display:block; width:100%; max-width:640px; border:1px solid var(--line); border-radius:10px; margin:10px 0 4px; background:#fff; cursor:zoom-in}
   .qimg:hover{border-color:var(--blue)}
   /* Scratch 风格积木块（选项内嵌渲染） */
@@ -108,6 +109,7 @@
   }
   .gflag{color:#4cbf56; font-size:17px}
   .cbg{background:#9966ff}
+  .csnd{background:#cf63cf}
   .qfigure{margin:10px 0 4px}
   /* 第 7 题示意图：背景列表 + 两段程序 */
   .q7wrap{display:flex; gap:18px 26px; flex-wrap:wrap; align-items:flex-start}
@@ -441,8 +443,15 @@ var MC = [
     exp:'图形按「蓝星 → 蓝方 → 绿齿轮花 → 橙星」四个一组循环，「?」是第 7 个，对应循环里的绿齿轮花，选 B。' },
   { q:'在 Scratch 中，以下哪个区域可以展示编程效果？', opts:['代码区','舞台区','角色区','积木区'], ans:1,
     exp:'舞台区用来播放、展示程序的运行效果。' },
-  { q:'将项目的背景音乐设置为声音库里的「Birthday」并重复播放，为了避免运行时产生噪音，应该使用（）', img:'img/q12.png', opts:[], ans:1,
-    exp:'在重复播放前先执行「停止所有声音」，防止上一遍还没放完、下一遍又叠上来产生噪音。' },
+  { q:'将项目的背景音乐设置为声音库里的「Birthday」并重复播放，为了避免运行时产生噪音，应该使用（）', htmlOpts:true,
+    opts:[
+      '<div class="sbstack"><div class="sb csnd">播放声音 <span class="pill">Birthday ▾</span></div></div>',
+      '<div class="sbstack"><div class="sb csnd">播放声音 <span class="pill">Birthday ▾</span> 等待播完</div></div>',
+      '<div class="sbstack"><div class="sb csnd">播放声音 <span class="pill">Birthday ▾</span></div><span class="sbjoin">或</span><div class="sb csnd">播放声音 <span class="pill">Birthday ▾</span> 等待播完</div></div>',
+      '<div class="sbstack"><div class="sb csnd">播放声音 <span class="pill">Birthday ▾</span></div><span class="sbjoin">和</span><div class="sb csnd">播放声音 <span class="pill">Birthday ▾</span> 等待播完</div></div>'
+    ],
+    ans:1,
+    exp:'背景音乐重复播放要用「播放声音 Birthday 等待播完」：上一遍放完才开始下一遍，声音不会叠加；A 不等待会让每次循环的播放重叠在一起产生噪音。C 和 D 都不对——只需要 B 这一块积木。' },
   { q:'角色一共有四个造型，执行下面代码，角色说的内容是？', img:'img/q13.png', opts:['1','2','3','4'], ans:0,
     exp:'程序先把造型切换到第 4 个（ballerina-d），再执行一次「下一个造型」——最后一个造型的下一个会绕回第一个，所以说的是造型编号 1。' },
   { q:'将一个玩具放在蓝、红、黄三个盒子里，下面只有一条说法正确，那么玩具放在哪个盒子里？蓝色盒子：玩具在这个盒子里。红色盒子：玩具不在这个盒子里。黄色盒子：玩具不在蓝色盒子里。', opts:['蓝色盒子','黄色盒子','红色盒子','条件不充分，推导不出来'], ans:2,
