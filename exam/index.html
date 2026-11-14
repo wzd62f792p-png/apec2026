@@ -85,6 +85,22 @@
   .qpts{font-size:13px; color:var(--mut); flex:none}
   .qimg{display:block; width:100%; max-width:640px; border:1px solid var(--line); border-radius:10px; margin:10px 0 4px; background:#fff; cursor:zoom-in}
   .qimg:hover{border-color:var(--blue)}
+  /* Scratch 风格积木块（选项内嵌渲染） */
+  .sbstack{display:flex; flex-direction:column; align-items:flex-start; gap:5px}
+  .sb{
+    color:#fff; font-weight:600; font-size:14.5px; line-height:1.5;
+    padding:8px 16px; width:max-content; border-radius:8px;
+    box-shadow:0 2px 0 rgba(0,0,0,.16);
+  }
+  .sb.hat{border-radius:18px 18px 8px 8px}
+  .cev{background:#e6a817}
+  .cmo{background:#4c97ff}
+  .pill{
+    display:inline-block; min-width:38px; text-align:center;
+    background:#fff; color:#454d5c; border-radius:999px;
+    padding:1px 12px; font-weight:700; font-size:14px;
+  }
+  .gflag{color:#4cbf56; font-size:17px}
   .lightbox{
     position:fixed; inset:0; z-index:98; background:rgba(10,16,28,.86);
     display:flex; align-items:center; justify-content:center; padding:24px; cursor:zoom-out;
@@ -328,8 +344,15 @@ var MC = [
     exp:'角色旋转时都是围绕中心点转的；中心点可以在造型编辑器里拖动修改，也可以设在角色图形之外。' },
   { q:'在对背景进行修改编辑的过程中，去除我们不需要的部分，需要使用绘图中的（）工具。', opts:['画笔','选择工具','橡皮擦','填充工具'], ans:2,
     exp:'擦除画面中不需要的部分，用橡皮擦工具。' },
-  { q:'点击绿旗，下面哪个程序可以让小猫转向左边？', img:'img/q3.png', opts:[], ans:2,
-    exp:'方向规定：0 向上、90 向右、-90 向左。右转 90 度只会顺时针转，不一定面向左。' },
+  { q:'点击绿旗，下面哪个程序可以让小猫转向左边？', htmlOpts:true,
+    opts:[
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">右转 ↻ <span class="pill">90</span> 度</div></div>',
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">面向 <span class="pill">0</span> 方向</div><div class="sb cmo">左转 ↺ <span class="pill">-90</span> 度</div></div>',
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">面向 <span class="pill">0</span> 方向</div><div class="sb cmo">右转 ↻ <span class="pill">-90</span> 度</div></div>',
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">将 x 坐标设为 <span class="pill">-90</span></div></div>'
+    ],
+    ans:2,
+    exp:'Scratch 中 0 方向是向上，-90 是向左。C 先「面向 0 方向」，再「右转 -90 度」——右转负数就是向左转 90 度，最后面向左。A 只右转 90 度（面向下）；B 左转 -90 度等于向右转 90 度（面向右）；D 只是改 x 坐标（位置），不是转向。' },
   { q:'下列关于舞台的描述，不正确的是？', opts:['舞台可以有很多背景','舞台背景可以切换','舞台中背景可以移动','可以把角色当背景来用'], ans:2,
     exp:'背景不能像角色那样移动；舞台可以有很多背景、能切换，也能把角色当背景用。' },
   { q:'如图所示，角色向右旋转 180 度，完成后它的正确的状态是？', img:'img/q5.png', opts:[], ans:1,
@@ -498,8 +521,15 @@ function buildPaper(){
       '<div class="opts two" data-kind="mc" data-id="' + i + '">';
     var n = q.opts.length || 4;
     for (var j = 0; j < n; j++){
-      html += '<div class="opt" data-v="' + j + '"><span class="letter">' + 'ABCD'[j] + '</span>' +
-        (q.opts[j] ? '<span>' + esc(q.opts[j]) + '</span>' : '') + '</div>';
+      var o = q.opts[j], inner;
+      if (q.htmlOpts && typeof o === 'string'){
+        inner = o;
+      } else if (o && typeof o === 'object' && o.img){
+        inner = '<img class="optimg" loading="lazy" src="' + o.img + '" alt="选项配图">';
+      } else {
+        inner = '<span>' + esc(o || '') + '</span>';
+      }
+      html += '<div class="opt" data-v="' + j + '"><span class="letter">' + 'ABCD'[j] + '</span>' + inner + '</div>';
     }
     html += '</div></div>';
   });
