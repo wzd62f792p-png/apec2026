@@ -85,6 +85,10 @@
   .qpts{font-size:13px; color:var(--mut); flex:none}
   .banner{background:var(--blue-l); color:var(--blue-d); font-weight:600; border-color:#c5d8f2}
   .banner b{color:var(--blue-d)}
+  .q9wrap{display:flex; gap:14px; flex-wrap:wrap}
+  .q10strip{display:flex; gap:10px; flex-wrap:wrap; align-items:center; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:#fff; width:max-content}
+  .shape{width:42px; height:42px; display:block}
+  .qmark{width:42px; height:42px; background:#1c1c1e; color:#fff; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800}
   .qimg{display:block; width:100%; max-width:640px; border:1px solid var(--line); border-radius:10px; margin:10px 0 4px; background:#fff; cursor:zoom-in}
   .qimg:hover{border-color:var(--blue)}
   /* Scratch 风格积木块（选项内嵌渲染） */
@@ -370,6 +374,13 @@ var EXAM = {
 };
 
 /* ---------- 一、单项选择（25 题 × 2 分 = 50 分） ---------- */
+var QB = {
+  STAR_B: '<svg class="shape" viewBox="0 0 100 100"><polygon points="50,5 61,38 95,38 67,59 78,92 50,71 22,92 33,59 5,38 39,38" fill="#a5cdf0" stroke="#7fb3dd" stroke-width="3" stroke-linejoin="round"/></svg>',
+  SQ_B:   '<svg class="shape" viewBox="0 0 100 100"><rect x="14" y="14" width="72" height="72" rx="8" fill="#9ecff0" stroke="#7fb3dd" stroke-width="3"/></svg>',
+  FLOWER: '<svg class="shape" viewBox="0 0 100 100"><polygon points="96,50 83,59 90,73 74,74 73,90 59,83 50,96 41,83 27,90 26,74 10,73 17,59 4,50 17,41 10,27 26,26 27,10 41,17 50,4 59,17 73,10 74,26 90,27 83,41" fill="#b9c96e" stroke="#93a34c" stroke-width="3" stroke-linejoin="round"/></svg>',
+  STAR_O: '<svg class="shape" viewBox="0 0 100 100"><polygon points="50,5 61,38 95,38 67,59 78,92 50,71 22,92 33,59 5,38 39,38" fill="#e8b25c" stroke="#cf9a3e" stroke-width="3" stroke-linejoin="round"/></svg>',
+  BALL:   '<svg class="shape" viewBox="0 0 100 100"><defs><radialGradient id="qball" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#eaf5fd"/><stop offset="100%" stop-color="#8fc3e8"/></radialGradient></defs><circle cx="50" cy="50" r="44" fill="url(#qball)" stroke="#7fb3dd" stroke-width="3"/></svg>'
+};
 var MC = [
   { q:'下面对中心点的描述正确的是？', opts:['中心点不能设置在角色之外','角色围绕中心点旋转','不能修改角色的中心点位置','其他三项都正确'], ans:1,
     exp:'角色旋转时都是围绕中心点转的；中心点可以在造型编辑器里拖动修改，也可以设在角色图形之外。' },
@@ -414,9 +425,19 @@ var MC = [
     exp:'点绿旗后：背景先「换成 Baseball 1 背景并等待」——这一刻正好触发小猫的「当背景换成 Baseball 1」，小猫马上说出（背景编号）。背景列表里 1 是 Arctic、2 是 Baseball 1，所以此时说的编号是 2（之后背景再换成 Baseball 2，不影响已经说出的话）。' },
   { q:'我们对角色 A 进行编程，完成了正确的代码后，执行发现 A 没有任何反应，而角色 B 却按照 A 的代码执行起来，最可能的原因是？', opts:['Scratch 软件出了差错','将角色 A 的代码写给了角色 B','计算机出现了运行问题','其他三项都不是'], ans:1,
     exp:'代码写错角色了：写代码前必须先在角色区选中正确的角色。' },
-  { q:'执行哪一段程序后，小猫可以从舞台的 A 位置，沿着 B、C 点到达 D 位置？', img:'img/q9.png', opts:[], ans:3,
-    exp:'看图：从 A 先向上到 B，再向右到 C，最后向上到 D。选项 D：面向 0（上）移动 50 步 → 面向 90（右）移动 100 步 → 面向 180（下）移动 -100 步（负数表示反方向，即向上 100 步），正好走完这条路。' },
-  { q:'找规律，「？」处的图形应该是？', img:'img/q10.png', opts:[], ans:1,
+  { q:'执行哪一段程序后，小猫可以从舞台的 A 位置，沿着 B、C 点到达 D 位置？', htmlOpts:true, ans:3,
+    figure:'<div class="q9wrap"><div class="q9col"><div class="q7cap">舞台位置图</div>' +
+      '<svg width="240" height="190" viewBox="0 0 240 190"><polyline points="35,160 35,95 185,95 185,25" fill="none" stroke="#4c97ff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="35" cy="160" r="6" fill="#e8a33d"/><circle cx="35" cy="95" r="5" fill="#9966ff"/><circle cx="185" cy="95" r="5" fill="#9966ff"/><circle cx="185" cy="25" r="5" fill="#9966ff"/><text x="12" y="182" font-size="15" font-weight="700" fill="#e8a33d">A（小猫）</text><text x="14" y="88" font-size="14" font-weight="700" fill="#9966ff">B</text><text x="193" y="100" font-size="14" font-weight="700" fill="#9966ff">C</text><text x="193" y="20" font-size="14" font-weight="700" fill="#9966ff">D</text><text x="88" y="87" font-size="13" fill="#5b6b85">100 步</text><text x="196" y="62" font-size="13" fill="#5b6b85">100 步</text><text x="44" y="132" font-size="13" fill="#5b6b85">50 步</text></svg></div></div>',
+    opts:[
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">面向 <span class="pill">0</span> 方向</div><div class="sb cmo">移动 <span class="pill">50</span> 步</div><div class="sb cmo">面向 <span class="pill">90</span> 方向</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div><div class="sb cmo">面向 <span class="pill">0</span> 方向</div><div class="sb cmo">移动 <span class="pill">-100</span> 步</div></div>',
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">面向 <span class="pill">180</span> 方向</div><div class="sb cmo">移动 <span class="pill">-50</span> 步</div><div class="sb cmo">面向 <span class="pill">90</span> 方向</div><div class="sb cmo">移动 <span class="pill">-100</span> 步</div><div class="sb cmo">面向 <span class="pill">0</span> 方向</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div></div>',
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">面向 <span class="pill">90</span> 方向</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div><div class="sb cmo">面向 <span class="pill">0</span> 方向</div><div class="sb cmo">移动 <span class="pill">50</span> 步</div><div class="sb cmo">面向 <span class="pill">0</span> 方向</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div></div>',
+      '<div class="sbstack"><div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div><div class="sb cmo">面向 <span class="pill">0</span> 方向</div><div class="sb cmo">移动 <span class="pill">50</span> 步</div><div class="sb cmo">面向 <span class="pill">90</span> 方向</div><div class="sb cmo">移动 <span class="pill">100</span> 步</div><div class="sb cmo">面向 <span class="pill">180</span> 方向</div><div class="sb cmo">移动 <span class="pill">-100</span> 步</div></div>'
+    ],
+    exp:'Scratch 里 0 是向上、90 向右、180 向下。D 先面向上走 50 步到 B，再面向右走 100 步到 C，最后面向 180（下）移动 -100 步——移动负数就是反方向，等于向上 100 步到 D，正好走完 A→B→C→D。A 最后一段是向下 100 步，B 方向全反，C 一开始就向右走，都到不了 D。' },
+  { q:'找规律，「？」处的图形应该是？', htmlOpts:true, ans:1,
+    figure:'<div class="q10strip">' + QB.STAR_B + QB.SQ_B + QB.FLOWER + QB.STAR_O + QB.STAR_B + QB.SQ_B + '<span class="qmark">?</span>' + QB.STAR_O + QB.STAR_B + '</div>',
+    opts:[QB.BALL, QB.FLOWER, QB.SQ_B, QB.STAR_B],
     exp:'图形按「蓝星 → 蓝方 → 绿齿轮花 → 橙星」四个一组循环，「?」是第 7 个，对应循环里的绿齿轮花，选 B。' },
   { q:'在 Scratch 中，以下哪个区域可以展示编程效果？', opts:['代码区','舞台区','角色区','积木区'], ans:1,
     exp:'舞台区用来播放、展示程序的运行效果。' },
