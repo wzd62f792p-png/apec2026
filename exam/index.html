@@ -285,7 +285,7 @@
       <ol>
         <li>考试时长 <b>90 分钟</b>（正式场次 11 月 15 日 10:00–11:30），点击「开始考试」后自动计时，到 11:30 统一收卷。</li>
         <li>试卷共三部分：<b>单项选择 25 题</b>（每题 2 分，共 50 分）、<b>判断 10 题</b>（每题 2 分，共 20 分）、<b>编程题 2 题</b>（每题 15 分，共 30 分）。</li>
-        <li>编程题请在<b>本机 Scratch 编辑器</b>中完成，完成后回到页面勾选「验收点」。</li>
+        <li>编程题请点击「<b>打开 Scratch 在线编辑器</b>」，按题目图片要求完成作品并<b>保存</b>；交卷即视为提交。</li>
         <li>答案<b>自动保存</b>在本机；意外关闭页面后重新登录可继续作答，计时不清零。</li>
         <li>时间用完将<b>自动交卷</b>；也可点击「交卷」提前结束。</li>
         <li>交卷后答卷<b>即时上传云端</b>，页面<b>不显示答案、成绩与解析</b>，也<b>不能重新作答</b>；成绩由组委会统一评定后公布。</li>
@@ -548,16 +548,10 @@ var TF = [
     exp:'图中是「说 你好！ 2 秒」积木，属于「外观」模块，不在「声音」模块。' }
 ];
 
-/* ---------- 三、编程题（2 题 × 15 分 = 30 分，勾选验收点按比例得分） ---------- */
+/* ---------- 三、编程题（2 题 × 15 分 = 30 分，在线编辑器完成并保存） ---------- */
 var TASKS = [
-  { pts:15, per:3, title:'编程题 36 · 小狗散步（15 分）',
-    goal:'选择背景 Playground；添加角色小狗 Dog2 和蝴蝶 Butterfly2。小狗初始位置 (-151, -106)，蝴蝶初始位置 (101, 165)；小狗只保留 dog2-a、dog2-b 两个造型，并把 dog2-b 编辑成尾巴朝下；蝴蝶面向左。点击绿旗后，小狗摇着尾巴从左向右走，蝴蝶从右向左扇动翅膀飞行。',
-    hint:'初始位置用「移到 x: y:」；走路 = 重复执行 { 下一个造型 → 移动 10 步 }；飞行同理，方向相反。',
-    steps:['背景 Playground 与角色 Dog2、Butterfly2 添加正确','小狗 (-151,-106)、蝴蝶 (101,165) 初始位置设置正确','小狗只保留两个造型，且 dog2-b 编辑为尾巴朝下','蝴蝶面向左','点击绿旗后：小狗从左向右走路（切换造型），蝴蝶从右向左飞行（切换造型）'] },
-  { pts:15, per:3, title:'编程题 37 · 运动起来（15 分）',
-    goal:'选择背景 Bedroom2、Basketball2；保留小猫角色；再绘制一个圆圈角色作表盘、一个表针角色。初始背景为 Bedroom2，小猫初始位置 (-160, -117)，表针指向正上方。点击绿旗：小猫说「我要去运动了！」1 秒 → 背景切换为 Basketball2，小猫切换造型向右走几步 → 说「该回家了！」1 秒 → 背景切换回 Bedroom2。同时表针每隔 0.5 秒右转 15 度，一共转 10 次。',
-    hint:'表针脚本和小猫脚本用两段「当绿旗被点击」同时运行；表针用「重复执行 10 次 { 右转 15 度 → 等待 0.5 秒 }」。',
-    steps:['两个背景添加正确，并绘制表盘、表针两个角色','初始背景 Bedroom2、小猫 (-160,-117)、表针指向正上方','流程完整：说「我要去运动了！」1 秒 → 切背景 Basketball2 → 换造型向右走几步 → 说「该回家了！」1 秒 → 切回 Bedroom2','表针每隔 0.5 秒右转 15 度，共转 10 次','点击绿旗后全流程能完整演示'] }
+  { pts:15, title:'编程题 36 · 小狗散步（15 分）', img:'img/q36.png' },
+  { pts:15, title:'编程题 37 · 运动起来（15 分）', img:'img/q37.png' }
 ];
 
 /* ================= 状态管理 ================= */
@@ -677,18 +671,13 @@ function buildPaper(){
   });
   html += '</div>';
 
-  html += '<div class="card"><h2>三、编程题（共 2 题，每题 15 分，共 30 分，按验收点计分）</h2>' +
-    '<p class="muted">请在本机 Scratch 编辑器中完成（可用上方「打开 Scratch 编辑器」），每完成一个验收点就勾选一项；得分 = 勾选比例 × 题目分值。</p>';
+  html += '<div class="card"><h2>三、编程题（共 2 题，每题 15 分，共 30 分）</h2>' +
+    '<p class="muted">点击「打开 Scratch 在线编辑器」，按题目图片要求完成作品并保存；交卷即视为提交，作品由评委老师查看评分。</p>';
   TASKS.forEach(function(t, i){
     html += '<div class="qcard task" id="pq' + i + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
       '<span class="qtext">' + esc(t.title) + '</span><span class="qpts">' + t.pts + ' 分</span></div>' +
-      '<div class="goal"><b>任务目标：</b>' + esc(t.goal) + '</div>' +
-      '<p><b>提示：</b>' + esc(t.hint) + '</p>' +
-      '<div class="checks" data-kind="task" data-id="' + i + '">';
-    t.steps.forEach(function(st, j){
-      html += '<label class="check"><input type="checkbox" data-j="' + j + '"><span>' + esc(st) + '</span></label>';
-    });
-    html += '</div><div class="task-score" id="sc-' + i + '">本题暂得 <b>0</b> / ' + t.pts + ' 分</div></div>';
+      '<img class="qimg" loading="lazy" src="' + t.img + '" alt="编程题题目图">' +
+      '<p style="margin-top:12px"><a class="btn ok" href="https://turbowarp.org/editor?locale=zh-cn" target="_blank" rel="noopener">打开 Scratch 在线编辑器 ↗</a></p></div>';
   });
   html += '</div>';
 
@@ -708,19 +697,8 @@ function bindPaper(){
       else { S.answers.tf[id] = opt.dataset.v === 'true'; }
       saveState(S); refreshPalette();
     }
-    var chk = e.target.closest && e.target.closest('.check');
-    if (chk){
-      setTimeout(function(){
-        var box = chk.parentElement, id = box.dataset.id;
-        var arr = TASKS[id].steps.map(function(){ return false; });
-        Array.prototype.forEach.call(box.querySelectorAll('input'), function(inp, j){ arr[j] = inp.checked; chkPaint(inp); });
-        S.answers.tasks[id] = arr;
-        saveState(S); paintTaskScore(id); refreshPalette();
-      }, 0);
-    }
   });
 }
-function chkPaint(inp){ inp.closest('.check').classList.toggle('done', inp.checked); }
 
 function restoreAnswers(){
   MC.forEach(function(q, i){
@@ -737,23 +715,7 @@ function restoreAnswers(){
     var el = box && box.querySelector('[data-v="' + v + '"]');
     if (el) el.classList.add('sel');
   });
-  TASKS.forEach(function(t, i){
-    var arr = S.answers.tasks[i];
-    if (!arr) return;
-    var box = document.querySelector('[data-kind="task"][data-id="' + i + '"]');
-    Array.prototype.forEach.call(box.querySelectorAll('input'), function(inp, j){
-      inp.checked = !!arr[j]; chkPaint(inp);
-    });
-    paintTaskScore(i);
-  });
   refreshPalette();
-}
-
-function paintTaskScore(i){
-  var t = TASKS[i];
-  var arr = S.answers.tasks[i] || [];
-  var n = arr.filter(Boolean).length;
-  $('sc-' + i).innerHTML = '本题暂得 <b>' + Math.round(t.pts * n / t.steps.length) + '</b> / ' + t.pts + ' 分（' + n + '/' + t.steps.length + ' 个验收点）';
 }
 
 function refreshPalette(){
