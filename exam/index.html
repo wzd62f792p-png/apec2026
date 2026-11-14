@@ -484,8 +484,19 @@ var MC = [
     exp:'「上传背景」按钮可以从本地电脑选择图片文件。' },
   { q:'如下图所示，判断下面哪句话是假的？', img:'img/q19.png', opts:['小猫有一个黑色的鼻子','熊有三只耳朵','小猫看起来很高兴','蝴蝶有两条触须'], ans:1,
     exp:'熊只有两只耳朵，「三只耳朵」是假的；其余都是对的。' },
-  { q:'对角色执行完这段程序后，舞台上播放的音量为：', img:'img/q20.png', opts:['80','60','30','20'], ans:3,
-    exp:'音量按顺序变化：设定为 100 → 增加 -10（90）→ 设定为 50 → 增加 -10（40）→ 设定为 10 → 增加 10（20），最后播放音量是 20。' },
+  { q:'对角色执行完这段程序后，舞台上播放的音调音效为：', figure:
+      '<div class="sbstack">' +
+        '<div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div>' +
+        '<div class="sb cmo">移到 x <span class="pill">0</span> y <span class="pill">0</span></div>' +
+        '<div class="sb csnd">将 <span class="pill">音调 ▾</span> 音效设为 <span class="pill">100</span></div>' +
+        '<div class="sb csnd">将 <span class="pill">音调 ▾</span> 音效增加 <span class="pill">-10</span></div>' +
+        '<div class="sb csnd">将 <span class="pill">音调 ▾</span> 音效设为 <span class="pill">50</span></div>' +
+        '<div class="sb csnd">将 <span class="pill">音调 ▾</span> 音效增加 <span class="pill">-10</span></div>' +
+        '<div class="sb csnd">将 <span class="pill">音调 ▾</span> 音效设为 <span class="pill">10</span></div>' +
+        '<div class="sb csnd">将 <span class="pill">音调 ▾</span> 音效增加 <span class="pill">10</span></div>' +
+      '</div>',
+    opts:['80','60','30','20'], ans:3,
+    exp:'「音调」音效按顺序变化：设为 100 → 增加 -10（90）→ 设为 50 → 增加 -10（40）→ 设为 10 → 增加 10（20），最后是 20。注意「设为」直接覆盖、「增加」在当前值上加。' },
   { q:'在程序里，角色有多个造型，下列哪个代码最终是显示造型 3 的？', img:'img/q21.png', opts:[], ans:1,
     exp:'指定切换到某个造型，用「将造型切换为 …」；一次「下一个造型」只会到造型 2。' },
   { q:'下列选项中，哪个能完成使默认角色向右移动 20 步？', img:'img/q22.png', opts:[], ans:0,
