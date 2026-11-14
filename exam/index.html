@@ -101,6 +101,30 @@
     padding:1px 12px; font-weight:700; font-size:14px;
   }
   .gflag{color:#4cbf56; font-size:17px}
+  .cbg{background:#9966ff}
+  .qfigure{margin:10px 0 4px}
+  /* 第 7 题示意图：背景列表 + 两段程序 */
+  .q7wrap{display:flex; gap:18px 26px; flex-wrap:wrap; align-items:flex-start}
+  .q7col{min-width:150px}
+  .q7cap{font-size:13px; font-weight:700; color:var(--mut); margin-bottom:8px}
+  .bdlist{display:flex; flex-direction:column; gap:8px}
+  .bdcard{
+    display:flex; align-items:center; gap:8px; border:1.5px solid #b9c8e3;
+    border-radius:10px; padding:6px 10px; background:#fff; width:max-content;
+    position:relative; font-size:13px;
+  }
+  .bdcard.sel{border-color:#4c97ff; box-shadow:0 0 0 2.5px rgba(76,151,255,.25)}
+  .bdno{font-weight:700; color:#454d5c}
+  .bdthumb{width:44px; height:33px; border-radius:4px; border:1px solid #d7dfee; flex:none}
+  .arctic{background:linear-gradient(180deg,#cdeafc 0%,#8fc7e8 55%,#eaf6fd 56%,#f5fbff 100%)}
+  .field{background:linear-gradient(180deg,#7ec06a 0%,#5a9e4a 62%,#6c5b3e 62%,#574a33 100%)}
+  .field2{background:linear-gradient(180deg,#8ccb7a 0%,#62a852 62%,#77664a 62%,#5e5038 100%)}
+  .bdname{color:#454d5c; line-height:1.35}
+  .bdname small{color:#8b96ab}
+  .bdx{
+    position:absolute; top:-7px; right:-7px; width:18px; height:18px; border-radius:50%;
+    background:#4c97ff; color:#fff; font-size:12px; display:flex; align-items:center; justify-content:center;
+  }
   .lightbox{
     position:fixed; inset:0; z-index:98; background:rgba(10,16,28,.86);
     display:flex; align-items:center; justify-content:center; padding:24px; cursor:zoom-out;
@@ -359,8 +383,28 @@ var MC = [
     exp:'右转 180 度正好转半圈，从面向右变成面向左。' },
   { q:'执行下列哪一个积木指令后，舞台上的小猫角色就会隐藏？', img:'img/q6.png', opts:[], ans:1,
     exp:'「隐藏」让角色从舞台上看不见；「显示」让它重新出现。' },
-  { q:'舞台有三个背景，背景的程序如下图。小猫执行下面的程序，小猫说的内容是？', img:'img/q7.png', opts:['1','2','3','1、2、3 都可能'], ans:1,
-    exp:'背景程序先「换成 Baseball 1 背景并等待」，这一刻触发小猫的「当背景换成 Baseball 1」事件，小猫马上说出（背景编号）——此时背景是列表里第 2 个，所以说的是 2。' },
+  { q:'舞台有三个背景，背景的程序如下图。小猫执行下面的程序，小猫说的内容是？', figure:
+      '<div class="q7wrap">' +
+        '<div class="q7col"><div class="q7cap">背景列表</div>' +
+          '<div class="bdlist">' +
+            '<div class="bdcard sel"><span class="bdno">1</span><span class="bdthumb arctic"></span><span class="bdname">Arctic<br><small>480 × 360</small></span><span class="bdx">×</span></div>' +
+            '<div class="bdcard"><span class="bdno">2</span><span class="bdthumb field"></span><span class="bdname">Baseball 1<br><small>480 × 360</small></span></div>' +
+            '<div class="bdcard"><span class="bdno">3</span><span class="bdthumb field2"></span><span class="bdname">Baseball 2<br><small>480 × 360</small></span></div>' +
+          '</div></div>' +
+        '<div class="q7col"><div class="q7cap">背景的程序</div>' +
+          '<div class="sbstack">' +
+            '<div class="sb hat cev">当 <span class="gflag">⚑</span> 被点击</div>' +
+            '<div class="sb cbg">换成 <span class="pill">Baseball 1 ▾</span> 背景并等待</div>' +
+            '<div class="sb cbg">换成 <span class="pill">Baseball 2 ▾</span> 背景</div>' +
+          '</div></div>' +
+        '<div class="q7col"><div class="q7cap">小猫的程序</div>' +
+          '<div class="sbstack">' +
+            '<div class="sb hat cev">当背景换成 <span class="pill">Baseball 1 ▾</span></div>' +
+            '<div class="sb cbg">说 <span class="pill">背景 编号 ▾</span> <span class="pill">6</span> 秒</div>' +
+          '</div></div>' +
+      '</div>',
+    opts:['1','2','3','1、2、3 都可能'], ans:1,
+    exp:'点绿旗后：背景先「换成 Baseball 1 背景并等待」——这一刻正好触发小猫的「当背景换成 Baseball 1」，小猫马上说出（背景编号）。背景列表里 1 是 Arctic、2 是 Baseball 1，所以此时说的编号是 2（之后背景再换成 Baseball 2，不影响已经说出的话）。' },
   { q:'我们对角色 A 进行编程，完成了正确的代码后，执行发现 A 没有任何反应，而角色 B 却按照 A 的代码执行起来，最可能的原因是？', opts:['Scratch 软件出了差错','将角色 A 的代码写给了角色 B','计算机出现了运行问题','其他三项都不是'], ans:1,
     exp:'代码写错角色了：写代码前必须先在角色区选中正确的角色。' },
   { q:'执行哪一段程序后，小猫可以从舞台的 A 位置，沿着 B、C 点到达 D 位置？', img:'img/q9.png', opts:[], ans:3,
@@ -517,6 +561,7 @@ function buildPaper(){
   MC.forEach(function(q, i){
     html += '<div class="qcard" id="mq' + i + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
       '<span class="qtext">' + esc(q.q) + '</span><span class="qpts">2 分</span></div>' +
+      (q.figure ? '<div class="qfigure">' + q.figure + '</div>' : '') +
       (q.img ? '<img class="qimg" loading="lazy" src="' + q.img + '" alt="题目配图">' : '') +
       '<div class="opts two" data-kind="mc" data-id="' + i + '">';
     var n = q.opts.length || 4;
@@ -539,6 +584,7 @@ function buildPaper(){
   TF.forEach(function(q, i){
     html += '<div class="qcard" id="tq' + i + '"><div class="qhead"><span class="qnum">' + (i + 1) + '</span>' +
       '<span class="qtext">' + esc(q.q) + '</span><span class="qpts">2 分</span></div>' +
+      (q.figure ? '<div class="qfigure">' + q.figure + '</div>' : '') +
       (q.img ? '<img class="qimg" loading="lazy" src="' + q.img + '" alt="题目配图">' : '') +
       '<div class="tfrow" data-kind="tf" data-id="' + i + '">' +
       '<div class="opt on" data-v="true">正确 √</div><div class="opt off" data-v="false">错误 ×</div></div></div>';
